@@ -17,8 +17,9 @@ instModalCloseButton.addEventListener("click", function() {
 })
     //Starting fetch request for spoonacular Api
 
+
     //Starting fetch request for triposo
-var location = "Toronto";
+var location = "Toronto"; //Placeholder this will change based on the cuisine.
 var triposoId = "98JDSPD1";
 var triposoApiKey = "opge12o7zdr1npc4primk2yaxn3omhxa";
 var triposoUrl = "https://www.triposo.com/api/20201111/poi.json?location_id="+ location + "&account="+ triposoId +"&token="+ triposoApiKey +"&count=4&fields=id,name,score,snippet,location_id,tag_labels&order_by=-score";
