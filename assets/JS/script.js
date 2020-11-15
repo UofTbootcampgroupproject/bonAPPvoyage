@@ -194,7 +194,7 @@ instModalCloseButton.addEventListener("click", function() {
                 var liEl = document.createElement("li");
                 var poiP = document.createElement("p");
                 var ratingRounded = Math.round(data.results[i].score * 10) / 10;
-                poih3El.innerHTML = "These are the top 3 points of interest in ", location;
+                poih3El.innerHTML = "These are the top 3 points of interest in " + data.results[i].location_id;
                 liEl.textContent = data.results[i].name;
                 poiP.innerHTML = ("description: " + data.results[i].snippet + "<br>" + "rating: " + ratingRounded + "/10");
                 poiDivEl.append(liEl, poiP);
