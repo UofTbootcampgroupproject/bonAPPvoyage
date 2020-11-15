@@ -25,27 +25,30 @@
 </head>
 
 <body>
-
     <section class="section">
         <div class="container">
-            <div class="field has-addons columns is-centered is-vcentered is-mobile is-gapless">
-
-                <div class="column is-1 select is-multiple mx-3">
+            <div class="field has-addons columns is-centered is-mobile is-gapless">
+                <div class="column is-2 mx-2">
                     <p class="has-text-weight-bold has-text-dark">Meal Type</p>
-                    <select multiple size="4">
-                        <option value="breakfast">Breakfast</option>
-                        <option value="snack">Snack</option>
-                        <option value="appetizer">Appetizer</option>
-                        <option value="main course">Main Course</option>
-                    </select>
-                </div>
-
-                <div class="column is-1 field mx-3">
-                    <p class="has-text-weight-bold has-text-dark">Mins to Cook</p>
                     <div class="control">
                         <div class="select is-primary">
-                            <select>
-                                <option value="20">20 Mins</option>
+                            <select id="meal-type">
+                                <option value="Any">Any</option>
+                                <option value="breakfast">Breakfast</option>
+                                <option value="snack">Snack</option>
+                                <option value="appetizer">Appetizer</option>
+                                <option value="main course">Main Course</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column is-2 mx-2">
+                    <p class="has-text-weight-bold has-text-dark">Cook Time</p>
+                    <div class="control">
+                        <div class="select is-primary">
+                            <select id="cook-time">
+                                <option value="Any">Any</option>
                                 <option value="30">30 Mins</option>
                                 <option value="45">45 Mins</option>
                                 <option value="60">60 Mins</option>
@@ -55,19 +58,16 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="control column is-1 px-3">
+                <div class="column is-3  mx-2 mt-5">
                     <a class="button mx-4 is-primary" id="searchBtn">
                         Search for Recipe
                     </a>
                 </div>
             </div>
-
-
         </div>
     </section>
 
-    <section>
+    <section id="recipes-section">
 
         <!--the container below is just a placeholder for development purposes-->
 
