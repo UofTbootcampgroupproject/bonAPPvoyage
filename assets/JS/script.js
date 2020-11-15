@@ -14,6 +14,9 @@ $(document).ready(function () {
     var recipeInstModalCloseButton = document.querySelector("#recipe-inst-modal-close-button");
     var fullRecipeButton = document.querySelector("#full-recipe-button");
     var fullRecipeUrl; // need to get this info from chosen data
+    var mealTypeInput = document.querySelector("#meal-type");
+    var cookTimeInput = document.querySelector("#cook-time");
+    var searchButton = document.querySelector("#searchBtn");
 
 
     /* If there is not a value saved on pageVisited (local storage) */
@@ -25,18 +28,18 @@ $(document).ready(function () {
 
         // var apiKey = "e2866768e0cb46598bbca075bc0a04ff";    // Manuel api Key
         var apiKey = "e9e71129ef994529977055667914d612";    // Michael api Key
-        var type = "Any Type";      // Here we check the value from the dropdown
-        var time = 45;      // Here we check the value from the dropdown
+        var type = mealTypeInput.value;      // Here we check the value from the dropdown
+        var time = cookTimeInput.value;      // Here we check the value from the dropdown
 
         // If the User selects any type
-        if (type === "Any Type") {
+        if (type === "Any") {
             var mealType = "";      // Enter an empty string as the parameter to urlRequest
         }
         else {
             var mealType = "&type=" + type;     // Enter selection as the parameter to urlRequest
         }
         // If the User selects any time
-        if (time === "Any Time") {
+        if (time === "Any") {
             var maxReadyTime = "";  // Enter an empty string as the parameter to urlRequest
         }
         else {
@@ -146,11 +149,10 @@ $(document).ready(function () {
         console.log(listOfSelectedObjs);
     }
 
-    // getRandomCuisineAndCity();
 
 
     //Starting fetch request for triposo
-    var location = "Toronto"; //Placeholder this will change based on the cuisine.
+   /*  var location = "Toronto"; //Placeholder this will change based on the cuisine.
     var triposoId = "98JDSPD1";
     var triposoApiKey = "opge12o7zdr1npc4primk2yaxn3omhxa";
     var triposoUrl = "https://www.triposo.com/api/20201111/poi.json?location_id=" + location + "&account=" + triposoId + "&token=" + triposoApiKey + "&count=4&fields=id,name,score,snippet,location_id,tag_labels&order_by=-score";
@@ -162,7 +164,12 @@ $(document).ready(function () {
         .then(function (data) {
             console.log(data);
             return data;
-        })
+        }) */
+
+    // Search Button Event Listening
+    searchButton.addEventListener("click", function () {
+        getRandomCuisineAndCity();
+    })
 
     // Modal Events Listening
     instModalBg.addEventListener("click", function () {
