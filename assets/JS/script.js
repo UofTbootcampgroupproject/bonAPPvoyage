@@ -1,6 +1,5 @@
 
 $(document).ready(function () {
-<<<<<<< HEAD
     //Triposo Api search by city
     var triposoLocation = "Mississauga";
     var triposoUrl = "https://www.triposo.com/api/20201111/poi.json?location_id="+ triposoLocation + "&count=10&fields=id,name,score,snippet,location_id,tag_labels&order_by=-score&account=98JDSPD1&token=60v4hgiq3zyo304rc0p3kfkh19zd224l"
@@ -32,8 +31,6 @@ instModalCloseButton.addEventListener("click", function() {
     instModal.classList.remove("is-active");
 })
     //Starting fetch request for spoonacular Api
-=======
->>>>>>> 1c6c9d0348c859016f52fbd3d1d7d04bddbf711c
 
     // QuerySelectors for HTML Elements
     var recipeButton = document.querySelector("#recipe-id");
@@ -120,12 +117,12 @@ instModalCloseButton.addEventListener("click", function() {
                         ingredientsNeeded.push(data.results[counter].missedIngredients[ingredCount].name);
                     }
 
-<<<<<<< HEAD
+
 // infoModalCloseButton.addEventListener("click", function() {
 //     infoModal.classList.remove("is-active");
 // })
-});
-=======
+
+
                     // console.log(data);
                     console.log("--------------")
                     console.log(recipeTitle);
@@ -235,7 +232,7 @@ instModalCloseButton.addEventListener("click", function() {
     infoModalCloseButton.addEventListener("click", function () {
         infoModal.classList.remove("is-active");
     })
-<<<<<<< HEAD
+
     // recipeButton.addEventListener("click", function() {
     //     infoModal.classList.add("is-active");
     // })
@@ -246,7 +243,3 @@ instModalCloseButton.addEventListener("click", function() {
     //     infoModal.classList.remove("is-active");
     // })
 });
->>>>>>> 1c6c9d0348c859016f52fbd3d1d7d04bddbf711c
-=======
-});
->>>>>>> f65f8069d4ca9dcc9ded67b22e54cefb76a860f3
