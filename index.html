@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv=" x-ua-compatible" content="ie=edge">
@@ -20,11 +19,130 @@
             </div>
         </div>
     </section>
+    <!-- Added jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <h1 class="title"> Welcome!</h1>
 
+    <section class="section">
+        <div class="container">
+            <div class="field has-addons columns is-centered is-vcentered is-mobile is-gapless">
+
+                <div class="column is-1 select is-multiple mx-3">
+                    <p class="has-text-weight-bold has-text-dark">Meal Type</p>
+                    <select multiple size="4">
+                        <option value="breakfast">Breakfast</option>
+                        <option value="snack">Snack</option>
+                        <option value="appetizer">Appetizer</option>
+                        <option value="main course">Main Course</option>
+                    </select>
+                </div>
+
+                <div class="column is-1 field mx-3">
+                    <p class="has-text-weight-bold has-text-dark">Mins to Cook</p>
+                    <div class="control">
+                        <div class="select is-primary">
+                            <select>
+                                <option value="20">20 Mins</option>
+                                <option value="30">30 Mins</option>
+                                <option value="45">45 Mins</option>
+                                <option value="60">60 Mins</option>
+                                <option value="90">90 Mins</option>
+                                <option value="120">120 Mins</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control column is-1 px-3">
+                    <a class="button mx-4 is-primary" id="searchBtn">
+                        Search for Recipe
+                    </a>
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+
+    <section>
+
+        <!--the container below is just a placeholder for development purposes-->
+
+        <div class="message is-primary mx-6 my-6" id="recipe-id">
+            <div class="message-header">
+                <p class="has-text-weight-bold is-size-4 is-italic" id="recipeTitle">Recipe Name</p>
+                <h2 class="has-text-weight-bold is-size-6 has-text-right" id="cuisine">Cuisine Type</h2>
+            </div>
+            <div class="message-body">
+                <div class="columns">
+                    <div class="column is-4-tablet">
+                        <figure class="image is-128x128">
+                            <img src="https://bulma.io/images/placeholders/256x256.png" id="recipeImage">
+                        </figure>
+                    </div>
+                    <div class="column is-4-tablet">
+                        <p class="has-text-success">Vegetarian: <span class="has-text-weight-bold"
+                                id="vegetarian">YES</span></p>
+                        <p class="has-text-primary">Vegan: <span class="has-text-weight-bold has-text-danger"
+                                id="vegan">NO</span></p>
+                        <p class="has-text-warning-dark">Gluten Free: <span class="has-text-weight-bold has-text-danger"
+                                id="glutenFree">NO</span></p>
+                        <p class="has-text-info">Dairy Free: <span class="has-text-weight-bold has-text-danger"
+                                id="dairyFree">NO</span></p>
+                    </div>
+                    <div class="column is-4-tablet">
+                        <p class="is-size-5 has-text-weight-bold">Ingredients</p>
+                        <ul id="ingredientsNeeded">
+                            <li>Ingredient 1</li>
+                            <li>Ingredient 1</li>
+                            <li>Ingredient 1</li>
+                            <li>Ingredient 1</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="message is-primary mx-6 my-6" id="recipe-id">
+            <div class="message-header">
+                <p class="has-text-weight-bold is-size-4 is-italic" id="recipeName">Recipe Name</p>
+                <h2 class="has-text-weight-bold is-size-6 has-text-right" id="cuisineType">Cuisine Type</h2>
+            </div>
+            <div class="message-body">
+                <div class="columns">
+                    <div class="column is-4-tablet">
+                        <figure class="image is-128x128">
+                            <img src="https://bulma.io/images/placeholders/256x256.png" id="recipeImage">
+                        </figure>
+                    </div>
+                    <div class="column is-4-tablet">
+                        <p class="has-text-success">Vegetarian: <span class="has-text-weight-bold"
+                                id="vegetarian-id">YES</span></p>
+                        <p class="has-text-primary">Vegan: <span class="has-text-weight-bold has-text-danger"
+                                id="vegan-id">NO</span></p>
+                        <p class="has-text-warning-dark">Gluten Free: <span class="has-text-weight-bold has-text-danger"
+                                id="gluten-id">NO</span></p>
+                        <p class="has-text-info">Dairy Free: <span class="has-text-weight-bold has-text-danger"
+                                id="dairy-id">NO</span></p>
+                    </div>
+                    <div class="column is-4-tablet">
+                        <p class="is-size-5 has-text-weight-bold">Ingredients</p>
+                        <ul id="ingredients-list">
+                            <li>Ingredient 1</li>
+                            <li>Ingredient 1</li>
+                            <li>Ingredient 1</li>
+                            <li>Ingredient 1</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--This ends the placeholder container-->
+    </section>
 
     <!-- Modal - Points Of Interest -->
     <div class="modal" id="info-modal">
@@ -40,15 +158,35 @@
                 <li class="is-size-5">Giant Forest</li>
                 <li class="is-size-5">Monte Olimpus</li>
                 <footer class="has-text-centered pt-6">
-                    <button class="button subtitle has-background-primary-dark is-rounded has-text-light">View
+                    <button class="button subtitle has-background-primary-dark is-rounded has-text-light"
+                        id="view-recipe-button">View
                         Recipe</button>
                 </footer>
             </section>
         </div>
     </div>
 
+    <!--Modal - Recipe Instructions-->
+    <div class="modal" id="recipe-info-modal">
+        <div class="modal-background" id="recipe-info-modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head has-background-primary-dark">
+                <p class="modal-card-title has-text-light has-text-weight-bold">Recipe Instructions</p>
+                <button class="delete" id="recipe-inst-modal-close-button" aria-label="close"></button>
+            </header>
+            <section class="modal-card-content has-background-light py-6 px-6">
+                <footer class="has-text-centered pt-6">
+                    <ul id="instruction-list">
+                        <li>Steps to make recipe.</li>
+                        <button class="button subtitle has-background-primary-dark is-rounded has-text-light"
+                            id="full-recipe-button">Go to full recipe</button>
+                </footer>
+            </section>
+        </div>
+    </div>
+
     <!-- Modal - How to use the App -->
-    <div class="modal is-active" id="inst-modal">
+    <div class="modal" id="inst-modal">
         <div class="modal-background" id="inst-modal-background"></div>
         <div class="modal-card">
             <header class="modal-card-head has-background-primary">
@@ -68,43 +206,6 @@
     </div>
 
     <script src="./assets/JS/script.js"></script>
-
-    <div class="container" style="margin-bottom: 25px">
-        <div class="notification is-primary">
-            <h1 id="recipeName">Recipe Name</h1>
-            <h2 id="origin">Country of Origin</h2>
-            <div class="columns">
-                <div class="column is-one-fifth">
-                    <figure class="image is-128x128">
-                        <img src="https://bulma.io/images/placeholders/256x256.png" id="recipeImage">
-                    </figure>
-                </div>
-                <div class="column is-four-fifths" id="missing">
-                    <h3>Missing Ingredients</h3>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!--the container below is just a placeholder for development purposes-->
-    <div class="container">
-        <div class="notification is-primary">
-            <h1>Recipe Name</h1>
-            <h2>Country of Origin</h2>
-            <div class="columns">
-                <div class="column is-one-fifth">
-                    <figure class="image is-128x128">
-                        <img src="https://bulma.io/images/placeholders/256x256.png" id="recipeImage">
-                    </figure>
-                </div>
-                <div class="column is-four-fifths">
-                    <h3>Missing Ingredients</h3>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!--This ends the placeholder container-->>
 </body>
 
 </html>
