@@ -1,5 +1,22 @@
 
 $(document).ready(function () {
+    // Modal Events
+// var recipeButton = document.querySelector("#recipe");
+var instModalBg = document.querySelector("#inst-modal-background");
+var infoModalBg = document.querySelector("#info-modal-background");
+var instModal = document.querySelector("#inst-modal");
+var infoModal = document.querySelector("#info-modal");
+var instModalCloseButton = document.querySelector("#inst-modal-close-button");
+var infoModalCloseButton = document.querySelector("#info-modal-close-button");
+
+instModalBg.addEventListener("click", function() {
+    instModal.classList.remove("is-active");
+})
+
+instModalCloseButton.addEventListener("click", function() {
+    instModal.classList.remove("is-active");
+})
+    //Starting fetch request for spoonacular Api
 
     // QuerySelectors for HTML Elements
     var recipeButton = document.querySelector("#recipe-id");
@@ -86,6 +103,12 @@ $(document).ready(function () {
                         ingredientsNeeded.push(data.results[counter].missedIngredients[ingredCount].name);
                     }
 
+
+// infoModalCloseButton.addEventListener("click", function() {
+//     infoModal.classList.remove("is-active");
+// })
+
+
                     // console.log(data);
                     console.log("--------------")
                     console.log(recipeTitle);
@@ -100,26 +123,26 @@ $(document).ready(function () {
 
     // List to Cuisine / Cities
     var listCuisineAndCity = [
-        { cuisine: "African, Cape_Town", },
-        { cuisine: "American, Los_Angeles", },
-        { cuisine: "British, London", },
-        { cuisine: "Cajun, New_Orleans", },
-        { cuisine: "Caribbean, Montego_Bay", },
-        { cuisine: "Chinese, Guangzhou", },
+        { cuisine: "African", },
+        { cuisine: "American", },
+        { cuisine: "British", },
+        { cuisine: "Cajun", },
+        { cuisine: "Caribbean", },
+        { cuisine: "Chinese", },
         { cuisine: "Eastern European", },
         { cuisine: "European", },
-        { cuisine: "French, Paris", },
-        { cuisine: "German, Berlin", },
-        { cuisine: "Greek, Athens", },
-        { cuisine: "Indian, New_Delhi", },
-        { cuisine: "Irish, Dublin", },
-        { cuisine: "Italian, Rome", },
-        { cuisine: "Japanese, Tokyo", },
-        { cuisine: "Jewish, Israel", },
-        { cuisine: "Korean, Seoul", },
+        { cuisine: "French", },
+        { cuisine: "German", },
+        { cuisine: "Greek", },
+        { cuisine: "Indian", },
+        { cuisine: "Irish", },
+        { cuisine: "Italian", },
+        { cuisine: "Japanese", },
+        { cuisine: "Jewish", },
+        { cuisine: "Korean", },
         { cuisine: "Latin American", },
-        { cuisine: "Mediterranean, Cairo", },
-        { cuisine: "Mexican, Mexico", },
+        { cuisine: "Mediterranean", },
+        { cuisine: "Mexican", },
         { cuisine: "Middle Eastern", },
         { cuisine: "Nordic", },
         { cuisine: "Southern", },
@@ -151,7 +174,7 @@ $(document).ready(function () {
 
 
     //Starting fetch request for triposo
-    var location = "Dublin"; //Placeholder this will change based on the cuisine.
+    var location = "Toronto"; //Placeholder this will change based on the cuisine.
     var triposoId = "98JDSPD1";
     var triposoApiKey = "opge12o7zdr1npc4primk2yaxn3omhxa";
     var triposoUrl = "https://www.triposo.com/api/20201111/poi.json?location_id=" + location + "&account=" + triposoId + "&token=" + triposoApiKey + "&count=4&fields=id,name,score,snippet,location_id,tag_labels&order_by=-score";
@@ -162,6 +185,18 @@ $(document).ready(function () {
         })
         .then(function (data) {
             console.log(data);
+            for (i=0;i<3;i++) {
+                console.log(data.results[i].name);
+                var poiDivEl = document.querySelector("#poidiv");
+                var poih3El = document.querySelector("#poih3");
+                var liEl = document.createElement("li");
+                var poiP = document.createElement("p");
+                var ratingRounded = Math.round(data.results[i].score * 10) / 10;
+                poih3El.innerHTML = "These are the top 3 points of interest in ", location;
+                liEl.textContent = data.results[i].name;
+                poiP.innerHTML = ("description: " + data.results[i].snippet + "<br>" + "rating: " + ratingRounded + "/10");
+                poiDivEl.append(liEl, poiP);
+            }
         })
 
     // Modal Events Listening
@@ -194,7 +229,7 @@ $(document).ready(function () {
     infoModalCloseButton.addEventListener("click", function () {
         infoModal.classList.remove("is-active");
     })
-<<<<<<< HEAD
+
     // recipeButton.addEventListener("click", function() {
     //     infoModal.classList.add("is-active");
     // })
@@ -205,6 +240,3 @@ $(document).ready(function () {
     //     infoModal.classList.remove("is-active");
     // })
 });
-=======
-});
->>>>>>> f65f8069d4ca9dcc9ded67b22e54cefb76a860f3
