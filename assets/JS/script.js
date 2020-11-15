@@ -1,22 +1,5 @@
 
 $(document).ready(function () {
-<<<<<<< HEAD
-    //Triposo Api search by city
-    var triposoLocation = "Mississauga";
-    var triposoUrl = "https://www.triposo.com/api/20201111/poi.json?location_id="+ triposoLocation + "&count=10&fields=id,name,score,snippet,location_id,tag_labels&order_by=-score&account=98JDSPD1&token=60v4hgiq3zyo304rc0p3kfkh19zd224l"
-    console.log(triposoUrl);
-    fetch(triposoUrl)
-        .then (function (response) {
-            return response.json();
-        })
-        .then (function (data) {
-            console.log(data);
-            var name;
-            var score = 9.6715;
-            var scoreRounded = Math.round(score * 10) /10;
-        })
-=======
->>>>>>> 8771cea22dc283d2d210b2897c5b2a2242efbe3f
     // Modal Events
 // var recipeButton = document.querySelector("#recipe");
 var instModalBg = document.querySelector("#inst-modal-background");
