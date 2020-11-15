@@ -2,23 +2,30 @@
 $(document).ready(function () {
 
     // QuerySelectors for HTML Elements
-    // var recipeButton = document.querySelector("#recipe");
+    var recipeButton = document.querySelector("#recipe-id");
+    var viewRecipeButton = document.querySelector("#view-recipe-button");
     var instModalBg = document.querySelector("#inst-modal-background");
     var infoModalBg = document.querySelector("#info-modal-background");
+    var recipeInstModalBg = document.querySelector("#recipe-inst-modal-background");
     var instModal = document.querySelector("#inst-modal");
     var infoModal = document.querySelector("#info-modal");
+    var recipeInfoModal = document.querySelector("#recipe-info-modal");
     var instModalCloseButton = document.querySelector("#inst-modal-close-button");
     var infoModalCloseButton = document.querySelector("#info-modal-close-button");
+    var recipeInstModalCloseButton = document.querySelector("#recipe-inst-modal-close-button");
+    var fullRecipeButton = document.querySelector("#full-recipe-button");
+    var fullRecipeUrl; // need to get this info from chosen data
+
 
     /* If there is not a value saved on pageVisited (local storage) */
-    if (localStorage.getItem("pageVisited") === null){
-            instModal.classList.add("is-active");  // Disable inst modal
+    if (localStorage.getItem("pageVisited") === null) {
+        instModal.classList.add("is-active");  // Disable inst modal
     }
-     
+
     function getRecipe(cuisine) {
 
-        var apiKey = "e2866768e0cb46598bbca075bc0a04ff";    // Manuel api Key
-
+        // var apiKey = "e2866768e0cb46598bbca075bc0a04ff";    // Manuel api Key
+        var apiKey = "e9e71129ef994529977055667914d612";    // Michael api Key
         var type = "Any Type";      // Here we check the value from the dropdown
         var time = 45;      // Here we check the value from the dropdown
 
@@ -40,7 +47,7 @@ $(document).ready(function () {
         // https://api.spoonacular.com/recipes/complexSearch?apiKey=e2866768e0cb46598bbca075bc0a04ff&number=1&addRecipeInformation=true&cuisine=Italian&type=main%20course&maxReadyTime=20&ignorePantry=true&instructionsRequired=true&fillIngredients=true
         var urlRequest = "https://api.spoonacular.com/recipes/complexSearch?apiKey=" + apiKey + "&number=1" + "&addRecipeInformation=true" + "&cuisine=" + cuisine + mealType + maxReadyTime + "&ignorePantry=true" + "&instructionsRequired=true" + "&fillIngredients=true";
 
-        // This fetch is to get the recipe id, image, list of missed ingredients, name. Parameter: max 6 recipe, use most of ingredients provided and ignore pantry itens. 
+        // This fetch is to get the recipe id, image, list of missed ingredients, name. Parameter: max 6 recipe, use most of ingredients provided and ignore pantry items. 
         fetch(urlRequest)
             .then(function (resp) {
                 return resp.json();
@@ -125,7 +132,7 @@ $(document).ready(function () {
 
     // This function selects randomly 6 objects from listCuisineAndCity and call getRecipe function
     function getRandomCuisineAndCity() {
-        
+
         var listOfSelectedObjs = [];    // List of selected objects
         var numberOfRecipe = 6;
         while (numberOfRecipe > 0) {
@@ -137,9 +144,9 @@ $(document).ready(function () {
                 numberOfRecipe--;
             }
         }
-        console.log(listOfSelectedObjs);  
+        console.log(listOfSelectedObjs);
     }
-    
+
     // getRandomCuisineAndCity();
 
 
@@ -160,14 +167,34 @@ $(document).ready(function () {
     // Modal Events Listening
     instModalBg.addEventListener("click", function () {
         instModal.classList.remove("is-active");
-         /* Save true value when user close the inst modal to pageVisited (the local storage) */
-         localStorage.setItem("pageVisited", JSON.stringify("true"));
+        /* Save true value when user close the inst modal to pageVisited (the local storage) */
+        localStorage.setItem("pageVisited", JSON.stringify("true"));
     })
     instModalCloseButton.addEventListener("click", function () {
         instModal.classList.remove("is-active");
-         /* Save true value when user close the inst modal to pageVisited (the local storage) */
-         localStorage.setItem("pageVisited", JSON.stringify("true"));
+        /* Save true value when user close the inst modal to pageVisited (the local storage) */
+        localStorage.setItem("pageVisited", JSON.stringify("true"));
     })
+    recipeButton.addEventListener("click", function () {
+        infoModal.classList.add("is-active");
+    })
+    viewRecipeButton.addEventListener("click", function () {
+        infoModal.classList.remove("is-active");
+        recipeInfoModal.classList.add("is-active");
+    })
+    recipeInstModalCloseButton.addEventListener("click", function () {
+        recipeInfoModal.classList.remove("is-active");
+    })
+    fullRecipeButton.addEventListener("click", function () {
+        window.open(fullRecipeUrl); // need to get this info from data
+    })
+    infoModalBg.addEventListener("click", function () {
+        infoModal.classList.remove("is-active");
+    })
+    infoModalCloseButton.addEventListener("click", function () {
+        infoModal.classList.remove("is-active");
+    })
+<<<<<<< HEAD
     // recipeButton.addEventListener("click", function() {
     //     infoModal.classList.add("is-active");
     // })
@@ -178,3 +205,6 @@ $(document).ready(function () {
     //     infoModal.classList.remove("is-active");
     // })
 });
+=======
+});
+>>>>>>> f65f8069d4ca9dcc9ded67b22e54cefb76a860f3
