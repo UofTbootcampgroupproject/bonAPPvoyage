@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
 
     // QuerySelectors for HTML Elements
@@ -92,26 +93,26 @@ $(document).ready(function () {
 
     // List to Cuisine / Cities
     var listCuisineAndCity = [
-        { cuisine: "African", },
-        { cuisine: "American", },
-        { cuisine: "British", },
-        { cuisine: "Cajun", },
-        { cuisine: "Caribbean", },
-        { cuisine: "Chinese", },
+        { cuisine: "African, Cape_Town", },
+        { cuisine: "American, Los_Angeles", },
+        { cuisine: "British, London", },
+        { cuisine: "Cajun, New_Orleans", },
+        { cuisine: "Caribbean, Montego_Bay", },
+        { cuisine: "Chinese, Guangzhou", },
         { cuisine: "Eastern European", },
         { cuisine: "European", },
-        { cuisine: "French", },
-        { cuisine: "German", },
-        { cuisine: "Greek", },
-        { cuisine: "Indian", },
-        { cuisine: "Irish", },
-        { cuisine: "Italian", },
-        { cuisine: "Japanese", },
-        { cuisine: "Jewish", },
-        { cuisine: "Korean", },
+        { cuisine: "French, Paris", },
+        { cuisine: "German, Berlin", },
+        { cuisine: "Greek, Athens", },
+        { cuisine: "Indian, New_Delhi", },
+        { cuisine: "Irish, Dublin", },
+        { cuisine: "Italian, Rome", },
+        { cuisine: "Japanese, Tokyo", },
+        { cuisine: "Jewish, Israel", },
+        { cuisine: "Korean, Seoul", },
         { cuisine: "Latin American", },
-        { cuisine: "Mediterranean", },
-        { cuisine: "Mexican", },
+        { cuisine: "Mediterranean, Cairo", },
+        { cuisine: "Mexican, Mexico", },
         { cuisine: "Middle Eastern", },
         { cuisine: "Nordic", },
         { cuisine: "Southern", },
@@ -143,7 +144,7 @@ $(document).ready(function () {
 
 
     //Starting fetch request for triposo
-    var location = "Toronto"; //Placeholder this will change based on the cuisine.
+    var location = "Dublin"; //Placeholder this will change based on the cuisine.
     var triposoId = "98JDSPD1";
     var triposoApiKey = "opge12o7zdr1npc4primk2yaxn3omhxa";
     var triposoUrl = "https://www.triposo.com/api/20201111/poi.json?location_id=" + location + "&account=" + triposoId + "&token=" + triposoApiKey + "&count=4&fields=id,name,score,snippet,location_id,tag_labels&order_by=-score";
@@ -154,7 +155,6 @@ $(document).ready(function () {
         })
         .then(function (data) {
             console.log(data);
-            return data;
         })
 
     // Modal Events Listening
