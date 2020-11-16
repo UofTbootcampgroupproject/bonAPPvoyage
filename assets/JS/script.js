@@ -126,7 +126,7 @@ instModalCloseButton.addEventListener("click", function() {
 
     // List to Cuisine / Cities
     var listCuisineAndCity = [
-        { cuisine: "African", },
+        { cuisine: "African", city: "Cape_Town", },
         { cuisine: "American", },
         { cuisine: "British", },
         { cuisine: "Cajun", },
@@ -172,11 +172,12 @@ instModalCloseButton.addEventListener("click", function() {
         }
         console.log(listOfSelectedObjs);
     }
+    getRandomCuisineAndCity();
 
 
 
     //Starting fetch request for triposo
-    var location = "Toronto"; //Placeholder this will change based on the cuisine.
+    var location = "Cape_Town"; //Placeholder this will change based on the cuisine.
     var triposoId = "98JDSPD1";
     var triposoApiKey = "opge12o7zdr1npc4primk2yaxn3omhxa";
     var triposoUrl = "https://www.triposo.com/api/20201111/poi.json?location_id=" + location + "&account=" + triposoId + "&token=" + triposoApiKey + "&count=4&fields=id,name,score,snippet,location_id,tag_labels&order_by=-score";
