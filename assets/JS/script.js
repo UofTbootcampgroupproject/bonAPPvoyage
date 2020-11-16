@@ -200,9 +200,7 @@ instModalCloseButton.addEventListener("click", function() {
                 poiDivEl.append(liEl, poiP);
             }
         })
-        })
-
-    // Search Button Event Listening
+        // Search Button Event Listening
     searchButton.addEventListener("click", function () {
         getRandomCuisineAndCity();
     })
@@ -237,6 +235,9 @@ instModalCloseButton.addEventListener("click", function() {
     infoModalCloseButton.addEventListener("click", function () {
         infoModal.classList.remove("is-active");
     })
+        })
+
+    
 
     // recipeButton.addEventListener("click", function() {
     //     infoModal.classList.add("is-active");
