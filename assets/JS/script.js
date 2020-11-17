@@ -9,6 +9,7 @@ var infoModal = document.querySelector("#info-modal");
 var instModalCloseButton = document.querySelector("#inst-modal-close-button");
 var infoModalCloseButton = document.querySelector("#info-modal-close-button");
 
+
 instModalBg.addEventListener("click", function() {
     instModal.classList.remove("is-active");
 })
@@ -127,31 +128,31 @@ instModalCloseButton.addEventListener("click", function() {
     // List to Cuisine / Cities
     var listCuisineAndCity = [
         { cuisine: "African", city: "Cape_Town", },
-        { cuisine: "American", },
-        { cuisine: "British", },
-        { cuisine: "Cajun", },
-        { cuisine: "Caribbean", },
-        { cuisine: "Chinese", },
-        { cuisine: "Eastern European", },
-        { cuisine: "European", },
-        { cuisine: "French", },
-        { cuisine: "German", },
-        { cuisine: "Greek", },
-        { cuisine: "Indian", },
-        { cuisine: "Irish", },
-        { cuisine: "Italian", },
-        { cuisine: "Japanese", },
-        { cuisine: "Jewish", },
-        { cuisine: "Korean", },
-        { cuisine: "Latin American", },
-        { cuisine: "Mediterranean", },
-        { cuisine: "Mexican", },
-        { cuisine: "Middle Eastern", },
-        { cuisine: "Nordic", },
-        { cuisine: "Southern", },
-        { cuisine: "Spanish", },
-        { cuisine: "Thai", },
-        { cuisine: "Vietnamese", }
+        { cuisine: "American", city: "New_York_City", },
+        { cuisine: "British", city:"London", },
+        { cuisine: "Cajun", city:"New_Orleans", },
+        { cuisine: "Caribbean", city: "Montego_Bay",},
+        { cuisine: "Chinese", city: "Guangzhou", },
+        { cuisine: "Eastern European", city: "Paris", },
+        { cuisine: "European", city: "Paris", },
+        { cuisine: "French", city: "Paris", },
+        { cuisine: "German", city: "Berlin", },
+        { cuisine: "Greek", city: "Athens" },
+        { cuisine: "Indian", city: "New_Delhi", },
+        { cuisine: "Irish", city: "Dublin", },
+        { cuisine: "Italian", city: "Rome", },
+        { cuisine: "Japanese", city: "Tokyo", },
+        { cuisine: "Jewish", city: "Israel", },
+        { cuisine: "Korean", city: "Seoul", },
+        { cuisine: "Latin American", city: "Bogota", },
+        { cuisine: "Mediterranean", city: "Istanbul", },
+        { cuisine: "Mexican", city: "Mexico", },
+        { cuisine: "Middle Eastern", city: "Cairo", },
+        { cuisine: "Nordic", city: "Oslo", },
+        { cuisine: "Southern", city: "Houston", },
+        { cuisine: "Spanish", city: "Madrid", },
+        { cuisine: "Thai", city: "Bangkok", },
+        { cuisine: "Vietnamese", city: "Hanoi", }
     ]
 
     //Starting fetch request for spoonacular Api
@@ -170,37 +171,49 @@ instModalCloseButton.addEventListener("click", function() {
                 numberOfRecipe--;
             }
         }
-        console.log(listOfSelectedObjs);
-    }
+            console.log(listOfSelectedObjs);
+            var location = [];
+            location.push(listOfSelectedObjs[0]["city"], listOfSelectedObjs[1]["city"], listOfSelectedObjs[2]["city"], listOfSelectedObjs[3]["city"], listOfSelectedObjs[4]["city"], listOfSelectedObjs[5]["city"]);
+            console.log(location);
+        
+        //Starting fetch request for triposo
+        // using a for each loop start a function for each city inside the listofselectedobjects
+            for (i=0; i<location.length; i++) {
+                var poiSectionEl = document.querySelector("#poisection");
+                var poiDivEl = document.querySelector("#poidiv");
+                var poiH3El = document.createElement("h3");
+                poiDivEl.setAttribute("class", "is-size-5");
+                poiDivEl.setAttribute("id", "poidiv");
+                poiH3El.innerHTML = "These are the top 3 points of interest in " + location[i];
+                poiDivEl.append(poiH3El);
+                    
+                    $(poiH3El).each(function () {
+                        var triposoId = "98JDSPD1";
+                        var triposoApiKey = "opge12o7zdr1npc4primk2yaxn3omhxa";
+                        var triposoUrl = "https://www.triposo.com/api/20201111/poi.json?location_id=" + location[i] + "&account=" + triposoId + "&token=" + triposoApiKey + "&count=4&fields=id,name,score,snippet,location_id,tag_labels&order_by=-score";
+                            fetch(triposoUrl)
+                                .then(function (response) {
+                                    console.log("Triposo has a " + response);
+                                    return response.json();
+                                })
+                                .then(function (data) {
+                                    console.log(data);
+                                    console.log(data.results.name);
+                                    for (j=0;j<3;j++); {
+                                        var liEl = document.createElement("li");
+                                        var poiP = document.createElement("p");
+                                        var ratingRounded = Math.round(data.results[j].score * 10) / 10;
+                                        liEl.textContent = data.results[j].name;
+                                        poiP.innerHTML = ("description: " + data.results[j].snippet + "<br>" + "rating: " + ratingRounded + "/10");
+                                        poiH3El.append(liEl, poiP);
+                                    }
+                                })   
+                })  
+            }
+        }
     getRandomCuisineAndCity();
 
 
-
-    //Starting fetch request for triposo
-    var location = "Cape_Town"; //Placeholder this will change based on the cuisine.
-    var triposoId = "98JDSPD1";
-    var triposoApiKey = "opge12o7zdr1npc4primk2yaxn3omhxa";
-    var triposoUrl = "https://www.triposo.com/api/20201111/poi.json?location_id=" + location + "&account=" + triposoId + "&token=" + triposoApiKey + "&count=4&fields=id,name,score,snippet,location_id,tag_labels&order_by=-score";
-    fetch(triposoUrl)
-        .then(function (response) {
-            console.log("Triposo has a " + response);
-            return response.json();
-        })
-        .then(function (data) {
-            console.log(data);
-            for (i=0;i<3;i++) {
-                console.log(data.results[i].name);
-                var poiDivEl = document.querySelector("#poidiv");
-                var poih3El = document.querySelector("#poih3");
-                var liEl = document.createElement("li");
-                var poiP = document.createElement("p");
-                var ratingRounded = Math.round(data.results[i].score * 10) / 10;
-                poih3El.innerHTML = "These are the top 3 points of interest in " + data.results[i].location_id;
-                liEl.textContent = data.results[i].name;
-                poiP.innerHTML = ("description: " + data.results[i].snippet + "<br>" + "rating: " + ratingRounded + "/10");
-                poiDivEl.append(liEl, poiP);
-            }
-        })
         // Search Button Event Listening
     searchButton.addEventListener("click", function () {
         getRandomCuisineAndCity();
