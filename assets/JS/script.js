@@ -57,7 +57,8 @@ instModalCloseButton.addEventListener("click", function() {
         recipeTitle.attr("id", "recipeTitle");
         recipeTitle.text(title);
         var cuisineName = $("<h2>").addClass("has-text-weight-bold is-size-6 has-text-right");
-        cuisineName.attr("id", "cuisine");
+        cuisineName.attr("id", cuisine);
+       // cuisineName.attr("id", "cuisine");
         cuisineName.text(cuisine);
 
         // MessageBody Div Elements
@@ -167,8 +168,8 @@ instModalCloseButton.addEventListener("click", function() {
     function getRecipe(cuisine, recipeCounter) {
 
         // var apiKey = "e2866768e0cb46598bbca075bc0a04ff";    // Manuel api Key
-        // var apiKey = "e9e71129ef994529977055667914d612";    // Michael api Key
-        var apiKey = "f1665cf0e8db418b975517f3bf4ddf27"; //Jhonny api Key;
+        var apiKey = "e9e71129ef994529977055667914d612";    // Michael api Key
+        // var apiKey = "f1665cf0e8db418b975517f3bf4ddf27"; //Jhonny api Key;
         var type = mealTypeInput.value;      // Here we check the value from the dropdown
         var time = cookTimeInput.value;      // Here we check the value from the dropdown
 
@@ -304,8 +305,8 @@ instModalCloseButton.addEventListener("click", function() {
                                 return response.json();
                             })
                             .then(function (data) {
-                                console.log(data);
-                                console.log(data.results.name);
+                                // console.log(data);
+                                // console.log(data.results.name);
                                 var newLocation = location.replace(/_/g, " ");
                                 for (i=0;i<3;i++) {
                                     console.log(data.results[i].name);
@@ -341,12 +342,14 @@ instModalCloseButton.addEventListener("click", function() {
         /* Save true value when user close the inst modal to pageVisited (the local storage) */
         localStorage.setItem("pageVisited", JSON.stringify("true"));
     })
-    recipeSection.addEventListener("click", function () {
+    recipeSection.addEventListener("click", function (e) {
+        var h2CuisineText = e.target.id;
         infoModal.classList.add("is-active");
         var h2Cuisine = $("#cuisine");
-        var h2CuisineText = h2Cuisine.text();
+        //var h2CuisineText = h2Cuisine.text();
+        //console.log("anything",$(this).attr("id"));
         // added if and else if statement to change the points of interest modal based on the cuisine type
-        if (h2CuisineText == "French") {
+        if (h2CuisineText === "French") {
             var poiDivEl = $("#poidiv");
             poiDivEl.empty();
             var poiTitleEl = document.querySelector("#poi-title");
@@ -354,7 +357,7 @@ instModalCloseButton.addEventListener("click", function() {
             poiTitleEl.innerHTML = "France - Points of Interest";
             var location = "Paris";
             renderPoi(location);
-        } else if (h2CuisineText == "African") {
+        } else if (h2CuisineText === "African") {
             var poiDivEl = $("#poidiv");
             poiDivEl.empty();
             var poiTitleEl = document.querySelector("#poi-title");
@@ -362,7 +365,7 @@ instModalCloseButton.addEventListener("click", function() {
             poiTitleEl.innerHTML = "South Africa - Points of Interest";
             var location = "Cape_Town";
             renderPoi(location);
-        } else if (h2CuisineText == "American") {
+        } else if (h2CuisineText === "American") {
             var poiDivEl = $("#poidiv");
             poiDivEl.empty();
             var poiTitleEl = document.querySelector("#poi-title");
@@ -370,7 +373,7 @@ instModalCloseButton.addEventListener("click", function() {
             poiTitleEl.innerHTML = "USA - Points of Interest";
             var location = "New_York_City";
             renderPoi(location);
-        } else if (h2CuisineText == "British") {
+        } else if (h2CuisineText === "British") {
             var poiDivEl = $("#poidiv");
             poiDivEl.empty();
             var poiTitleEl = document.querySelector("#poi-title");
@@ -378,7 +381,7 @@ instModalCloseButton.addEventListener("click", function() {
             poiTitleEl.innerHTML ="England - Points of Interest";
             var location = "London";
             renderPoi(location);
-        } else if (h2CuisineText == "Cajun") {
+        } else if (h2CuisineText === "Cajun") {
             var poiDivEl = $("#poidiv");
             poiDivEl.empty();
             var poiTitleEl = document.querySelector("#poi-title");
@@ -386,7 +389,7 @@ instModalCloseButton.addEventListener("click", function() {
             poiTitleEl.innerHTML = "Louisiana - Points of Interest";
             var location = "New_Orleans";
             renderPoi(location);
-        } else if (h2CuisineText == "Caribbean") {
+        } else if (h2CuisineText === "Caribbean") {
             var poiDivEl = $("#poidiv");
             poiDivEl.empty();
             var poiTitleEl = document.querySelector("#poi-title");
@@ -394,7 +397,7 @@ instModalCloseButton.addEventListener("click", function() {
             poiTitleEl.innerHTML = "Jamaica - Points of Interest";
             var location = "Montego_Bay";
             renderPoi(location);
-        } else if (h2CuisineText == "Chinese") {
+        } else if (h2CuisineText === "Chinese") {
             var poiDivEl = $("#poidiv");
             poiDivEl.empty();
             var poiTitleEl = document.querySelector("#poi-title");
@@ -402,7 +405,7 @@ instModalCloseButton.addEventListener("click", function() {
             poiTitleEl.innerHTML = "China - Points of Interest";
             var location = "Guangzhou";
             renderPoi(location);
-        } else if (h2CuisineText == "Eastern European") {
+        } else if (h2CuisineText === "Eastern European") {
             var poiDivEl = $("#poidiv");
             poiDivEl.empty();
             var poiTitleEl = document.querySelector("#poi-title");
@@ -410,7 +413,7 @@ instModalCloseButton.addEventListener("click", function() {
             poiTitleEl.innerHTML = "France - Points of Interest";
             var location = "Paris";
             renderPoi(location);
-        } else if (h2CuisineText == "European") {
+        } else if (h2CuisineText === "European") {
             var poiDivEl = $("#poidiv");
             poiDivEl.empty();
             var poiTitleEl = document.querySelector("#poi-title");
@@ -418,7 +421,7 @@ instModalCloseButton.addEventListener("click", function() {
             poiTitleEl.innerHTML = "France - Points of Interest";
             var location = "Paris";
             renderPoi(location);
-        } else if (h2CuisineText == "German") {
+        } else if (h2CuisineText === "German") {
             var poiDivEl = $("#poidiv");
             poiDivEl.empty();
             var poiTitleEl = document.querySelector("#poi-title");
@@ -426,7 +429,7 @@ instModalCloseButton.addEventListener("click", function() {
             poiTitleEl.innerHTML = "Germany - Points of Interest";
             var location = "Munich";
             renderPoi(location);
-        } else if (h2CuisineText == "Greek") {
+        } else if (h2CuisineText === "Greek") {
             var poiDivEl = $("#poidiv");
             poiDivEl.empty();
             var poiTitleEl = document.querySelector("#poi-title");
@@ -434,7 +437,7 @@ instModalCloseButton.addEventListener("click", function() {
             poiTitleEl.innerHTML = "Greece - Points of Interest";
             var location = "Athens";
             renderPoi(location);
-        } else if (h2CuisineText == "Indian") {
+        } else if (h2CuisineText === "Indian") {
             var poiDivEl = $("#poidiv");
             poiDivEl.empty();
             var poiTitleEl = document.querySelector("#poi-title");
@@ -442,7 +445,7 @@ instModalCloseButton.addEventListener("click", function() {
             poiTitleEl.innerHTML = "India - Points of Interest";
             var location = "New_Delhi";
             renderPoi(location);
-        } else if (h2CuisineText == "Irish") {
+        } else if (h2CuisineText === "Irish") {
             var poiDivEl = $("#poidiv");
             poiDivEl.empty();
             var poiTitleEl = document.querySelector("#poi-title");
@@ -450,7 +453,7 @@ instModalCloseButton.addEventListener("click", function() {
             poiTitleEl.innerHTML = "Ireland - Points of Interest";
             var location = "Dublin";
             renderPoi(location);
-        } else if (h2CuisineText == "Italian") {
+        } else if (h2CuisineText === "Italian") {
             var poiDivEl = $("#poidiv");
             poiDivEl.empty();
             var poiTitleEl = document.querySelector("#poi-title");
@@ -458,7 +461,7 @@ instModalCloseButton.addEventListener("click", function() {
             poiTitleEl.innerHTML = "Italy - Points of Interest";
             var location = "Rome";
             renderPoi(location);
-        } else if (h2CuisineText == "Japanese") {
+        } else if (h2CuisineText === "Japanese") {
             var poiDivEl = $("#poidiv");
             poiDivEl.empty();
             var poiTitleEl = document.querySelector("#poi-title");
@@ -466,7 +469,7 @@ instModalCloseButton.addEventListener("click", function() {
             poiTitleEl.innerHTML = "Japan - Points of Interest";
             var location = "Tokyo";
             renderPoi(location);
-        } else if (h2CuisineText == "Korean") {
+        } else if (h2CuisineText === "Korean") {
             var poiDivEl = $("#poidiv");
             poiDivEl.empty();
             var poiTitleEl = document.querySelector("#poi-title");
@@ -474,7 +477,7 @@ instModalCloseButton.addEventListener("click", function() {
             poiTitleEl.innerHTML = "Korea - Points of Interest";
             var location = "Seoul";
             renderPoi(location);
-        } else if (h2CuisineText == "Jewish") {
+        } else if (h2CuisineText === "Jewish") {
             var poiDivEl = $("#poidiv");
             poiDivEl.empty();
             var poiTitleEl = document.querySelector("#poi-title");
@@ -482,7 +485,7 @@ instModalCloseButton.addEventListener("click", function() {
             poiTitleEl.innerHTML = "Isreal - Points of Interest";
             var location = "Jerusalem";
             renderPoi(location);
-        } else if (h2CuisineText == "Latin American") {
+        } else if (h2CuisineText === "Latin American") {
             var poiDivEl = $("#poidiv");
             poiDivEl.empty();
             var poiTitleEl = document.querySelector("#poi-title");
@@ -490,7 +493,7 @@ instModalCloseButton.addEventListener("click", function() {
             poiTitleEl.innerHTML = "Colombia - Points of Interest";
             var location = "Bogota";
             renderPoi(location);
-        } else if (h2CuisineText == "Mediterranean") {
+        } else if (h2CuisineText === "Mediterranean") {
             var poiDivEl = $("#poidiv");
             poiDivEl.empty();
             var poiTitleEl = document.querySelector("#poi-title");
@@ -498,7 +501,7 @@ instModalCloseButton.addEventListener("click", function() {
             poiTitleEl.innerHTML = "Turkey - Points of Interest";
             var location = "Istanbul";
             renderPoi(location);
-        } else if (h2CuisineText == "Mexican") {
+        } else if (h2CuisineText === "Mexican") {
             var poiDivEl = $("#poidiv");
             poiDivEl.empty();
             var poiTitleEl = document.querySelector("#poi-title");
@@ -506,7 +509,7 @@ instModalCloseButton.addEventListener("click", function() {
             poiTitleEl.innerHTML = "Mexico - Points of Interest";
             var location = "Mexico_City";
             renderPoi(location);
-        } else if (h2CuisineText == "Middle-Eastern") {
+        } else if (h2CuisineText === "Middle-Eastern") {
             var poiDivEl = $("#poidiv");
             poiDivEl.empty();
             var poiTitleEl = document.querySelector("#poi-title");
@@ -514,7 +517,7 @@ instModalCloseButton.addEventListener("click", function() {
             poiTitleEl.innerHTML = "Egypt - Points of Interest";
             var location = "Cairo";
             renderPoi(location);
-        } else if (h2CuisineText == "Nordic") {
+        } else if (h2CuisineText === "Nordic") {
             var poiDivEl = $("#poidiv");
             poiDivEl.empty();
             var poiTitleEl = document.querySelector("#poi-title");
@@ -522,7 +525,7 @@ instModalCloseButton.addEventListener("click", function() {
             poiTitleEl.innerHTML = "Norway - Points of Interest";
             var location = "Oslo";
             renderPoi(location);
-        } else if (h2CuisineText == "Southern") {
+        } else if (h2CuisineText === "Southern") {
             var poiDivEl = $("#poidiv");
             poiDivEl.empty();
             var poiTitleEl = document.querySelector("#poi-title");
@@ -530,7 +533,7 @@ instModalCloseButton.addEventListener("click", function() {
             poiTitleEl.innerHTML = "Texas - Points of Interest";
             var location = "Houston";
             renderPoi(location);
-        } else if (h2CuisineText == "Spanish") {
+        } else if (h2CuisineText === "Spanish") {
             var poiDivEl = $("#poidiv");
             poiDivEl.empty();
             var poiTitleEl = document.querySelector("#poi-title");
@@ -538,7 +541,7 @@ instModalCloseButton.addEventListener("click", function() {
             poiTitleEl.innerHTML = "Spain - Points of Interest";
             var location = "Madrid";
             renderPoi(location);
-        } else if (h2CuisineText == "Thai") {
+        } else if (h2CuisineText === "Thai") {
             var poiDivEl = $("#poidiv");
             poiDivEl.empty();
             var poiTitleEl = document.querySelector("#poi-title");
@@ -546,7 +549,7 @@ instModalCloseButton.addEventListener("click", function() {
             poiTitleEl.innerHTML = "Thailand - Points of Interest";
             var location = "Bangkok";
             renderPoi(location);
-        } else if (h2CuisineText == "Vietnamese") {
+        } else if (h2CuisineText === "Vietnamese") {
             var poiDivEl = $("#poidiv");
             poiDivEl.empty();
             var poiTitleEl = document.querySelector("#poi-title");
