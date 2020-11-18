@@ -8,12 +8,12 @@
     <title>BonAPPvoyage</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.1/css/bulma-rtl.min.css" />
     <section class="hero is-primary">
-        <div class="hero-body">
+            <div class="hero-body">
             <div class="container">
                 <h1 class="title">
                     BonAPPvoyage
                 </h1>
-                <h2 class="subtitle">
+                <h2 c   lass="subtitle">
                     Travel the world from the comfort of your home
                 </h2>
             </div>
@@ -25,27 +25,30 @@
 </head>
 
 <body>
-
     <section class="section">
         <div class="container">
-            <div class="field has-addons columns is-centered is-vcentered is-mobile is-gapless">
-
-                <div class="column is-1 select is-multiple mx-3">
+            <div class="field has-addons columns is-centered is-mobile is-gapless">
+                <div class="column is-2 mx-2">
                     <p class="has-text-weight-bold has-text-dark">Meal Type</p>
-                    <select multiple size="4">
-                        <option value="breakfast">Breakfast</option>
-                        <option value="snack">Snack</option>
-                        <option value="appetizer">Appetizer</option>
-                        <option value="main course">Main Course</option>
-                    </select>
-                </div>
-
-                <div class="column is-1 field mx-3">
-                    <p class="has-text-weight-bold has-text-dark">Mins to Cook</p>
                     <div class="control">
                         <div class="select is-primary">
-                            <select>
-                                <option value="20">20 Mins</option>
+                            <select id="meal-type">
+                                <option value="Any">Any</option>
+                                <option value="breakfast">Breakfast</option>
+                                <option value="snack">Snack</option>
+                                <option value="appetizer">Appetizer</option>
+                                <option value="main course">Main Course</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column is-2 mx-2">
+                    <p class="has-text-weight-bold has-text-dark">Cook Time</p>
+                    <div class="control">
+                        <div class="select is-primary">
+                            <select id="cook-time">
+                                <option value="Any">Any</option>
                                 <option value="30">30 Mins</option>
                                 <option value="45">45 Mins</option>
                                 <option value="60">60 Mins</option>
@@ -55,23 +58,20 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="control column is-1 px-3">
+                <div class="column is-3  mx-2 mt-5">
                     <a class="button mx-4 is-primary" id="searchBtn">
                         Search for Recipe
                     </a>
                 </div>
             </div>
-
-
         </div>
     </section>
 
-    <section>
+    <section id="recipes-section">
 
         <!--the container below is just a placeholder for development purposes-->
 
-        <div class="message is-primary mx-6 my-6" id="recipe-id">
+        <!-- <div class="message is-primary mx-6 my-6" id="recipe-id">
             <div class="message-header">
                 <p class="has-text-weight-bold is-size-4 is-italic" id="recipeTitle">Recipe Name</p>
                 <h2 class="has-text-weight-bold is-size-6 has-text-right" id="cuisine">Cuisine Type</h2>
@@ -104,9 +104,9 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
-        <div class="message is-primary mx-6 my-6" id="recipe-id">
+        <!-- <div class="message is-primary mx-6 my-6" id="recipe-id">
             <div class="message-header">
                 <p class="has-text-weight-bold is-size-4 is-italic" id="recipeName">Recipe Name</p>
                 <h2 class="has-text-weight-bold is-size-6 has-text-right" id="cuisineType">Cuisine Type</h2>
@@ -139,7 +139,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <!--This ends the placeholder container-->
     </section>
@@ -153,10 +153,9 @@
                 <button class="delete" id="info-modal-close-button" aria-label="close"></button>
             </header>
             <section class="modal-card-content has-background-light py-6 px-6">
-                <li class="is-size-5">Temple Of Peace</li>
-                <li class="is-size-5">Fox Mountant</li>
-                <li class="is-size-5">Giant Forest</li>
-                <li class="is-size-5">Monte Olimpus</li>
+                <div class="is-size-5" id="poidiv">
+                    <h3 id="poih3"></h3>
+                </div>
                 <footer class="has-text-centered pt-6">
                     <button class="button subtitle has-background-primary-dark is-rounded has-text-light"
                         id="view-recipe-button">View
@@ -204,7 +203,7 @@
             </ol>
         </div>
     </div>
-
+    
     <script src="./assets/JS/script.js"></script>
 </body>
 
