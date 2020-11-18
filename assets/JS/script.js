@@ -1,22 +1,23 @@
 
 $(document).ready(function () {
     // Modal Events
-// var recipeButton = document.querySelector("#recipe");
-var instModalBg = document.querySelector("#inst-modal-background");
-var infoModalBg = document.querySelector("#info-modal-background");
-var instModal = document.querySelector("#inst-modal");
-var infoModal = document.querySelector("#info-modal");
-var instModalCloseButton = document.querySelector("#inst-modal-close-button");
-var infoModalCloseButton = document.querySelector("#info-modal-close-button");
+  
+    // var recipeButton = document.querySelector("#recipe");
+    var instModalBg = document.querySelector("#inst-modal-background");
+    var infoModalBg = document.querySelector("#info-modal-background");
+    var instModal = document.querySelector("#inst-modal");
+    var infoModal = document.querySelector("#info-modal");
+    var instList = document.querySelector("#instructions-list");
+    var instModalCloseButton = document.querySelector("#inst-modal-close-button");
+    var infoModalCloseButton = document.querySelector("#info-modal-close-button");
 
+    instModalBg.addEventListener("click", function () {
+        instModal.classList.remove("is-active");
+    })
 
-instModalBg.addEventListener("click", function() {
-    instModal.classList.remove("is-active");
-})
-
-instModalCloseButton.addEventListener("click", function() {
-    instModal.classList.remove("is-active");
-})
+    instModalCloseButton.addEventListener("click", function () {
+        instModal.classList.remove("is-active");
+    })
     //Starting fetch request for spoonacular Api
 
     // QuerySelectors for HTML Elements
@@ -44,7 +45,7 @@ instModalCloseButton.addEventListener("click", function() {
     }
 
     // This Function Create Recipe Div
-    function createRecipeDiv (title, cuisine, image, foodTags, ingredients, recipeCounter) {
+    function createRecipeDiv(title, cuisine, image, foodTags, ingredients, recipeCounter) {
         // Message Div element
         var messageDiv = $("<div>").addClass("message is-primary mx-6 my-6");
         messageDiv.attr("id", "recipe-id");
@@ -75,7 +76,7 @@ instModalCloseButton.addEventListener("click", function() {
 
         // Elements Food tags column
         var foodTagDiv = $("<div>").addClass("column is-4-tablet");
-        
+
         // Vegetarian tag
         var vegetarianP = $("<p>").addClass("has-text-success has-text-weight-bold");
         vegetarianP.text("Vegetarian: ");
@@ -88,7 +89,7 @@ instModalCloseButton.addEventListener("click", function() {
         else {
             vegetarianSpan.addClass("has-text-danger")
             vegetarianSpan.text("NO");
-        } 
+        }
         vegetarianP.append(vegetarianSpan);
         // Vegan tag
         var veganP = $("<p>").addClass("has-text-primary has-text-weight-bold");
@@ -102,7 +103,7 @@ instModalCloseButton.addEventListener("click", function() {
         else {
             veganSpan.addClass("has-text-danger")
             veganSpan.text("NO");
-        } 
+        }
         veganP.append(veganSpan);
         // Gluten Free tag
         var glutenFreeP = $("<p>").addClass("has-text-warning-dark has-text-weight-bold");
@@ -116,7 +117,7 @@ instModalCloseButton.addEventListener("click", function() {
         else {
             glutenFreeSpan.addClass("has-text-danger")
             glutenFreeSpan.text("NO");
-        } 
+        }
         glutenFreeP.append(glutenFreeSpan);
         // Dairy free tag
         var dairyP = $("<p>").addClass("has-text-info has-text-weight-bold");
@@ -130,7 +131,7 @@ instModalCloseButton.addEventListener("click", function() {
         else {
             dairySpan.addClass("has-text-danger")
             dairySpan.text("NO");
-        } 
+        }
         dairyP.append(dairySpan);
 
         // Append foof tags to foodTagDiv
@@ -146,7 +147,7 @@ instModalCloseButton.addEventListener("click", function() {
         var ulDiv = $("<ul>");
         ulDiv.attr("id", "ingredientsNeeded");
 
-        $.each(ingredients, function(index){
+        $.each(ingredients, function (index) {
             ulDiv.append($("<li>").text(ingredients[index]));
         })
 
@@ -170,6 +171,7 @@ instModalCloseButton.addEventListener("click", function() {
         // var apiKey = "e2866768e0cb46598bbca075bc0a04ff";    // Manuel api Key
         var apiKey = "e9e71129ef994529977055667914d612";    // Michael api Key
         // var apiKey = "f1665cf0e8db418b975517f3bf4ddf27"; //Jhonny api Key;
+
         var type = mealTypeInput.value;      // Here we check the value from the dropdown
         var time = cookTimeInput.value;      // Here we check the value from the dropdown
 
@@ -233,8 +235,8 @@ instModalCloseButton.addEventListener("click", function() {
                     createRecipeDiv(recipeTitle, cuisine, recipeImage, [vegetarian, vegan, glutenFree, dairyFree], ingredientsNeeded, recipeCounter);
 
                     /* Save each recipe steps on the local storage with recipe number as key name */
-                    localStorage.setItem(recipeCounter, JSON.stringify(recipeSteps));
-                    
+                    localStorage.setItem(recipeCounter, JSON.stringify(recipeSteps))
+                    console.log(recipeCounter);
                 }
             })
     }
@@ -282,7 +284,7 @@ instModalCloseButton.addEventListener("click", function() {
                 listOfSelectedObjs.push(listCuisineAndCity[randomIndex]);
                 // or call getRecipe ()
                 getRecipe(listCuisineAndCity[randomIndex].cuisine, recipeCounter);
-                console.log(recipeCounter);
+                console.log("this is recipeCounter" + recipeCounter);
                 recipeCounter++;
             }
         }
@@ -325,7 +327,33 @@ instModalCloseButton.addEventListener("click", function() {
     getRandomCuisineAndCity();
 
 
-        // Search Button Event Listening
+    //Starting fetch request for triposo
+    var location = "Toronto"; //Placeholder this will change based on the cuisine.
+    var triposoId = "98JDSPD1";
+    var triposoApiKey = "opge12o7zdr1npc4primk2yaxn3omhxa";
+    var triposoUrl = "https://www.triposo.com/api/20201111/poi.json?location_id=" + location + "&account=" + triposoId + "&token=" + triposoApiKey + "&count=4&fields=id,name,score,snippet,location_id,tag_labels&order_by=-score";
+    fetch(triposoUrl)
+        .then(function (response) {
+            // console.log("Triposo has a " + response);
+            return response.json();
+        })
+        .then(function (data) {
+            // console.log(data);
+            for (i = 0; i < 3; i++) {
+                // console.log(data.results[i].name);
+                var poiDivEl = document.querySelector("#poidiv");
+                var poih3El = document.querySelector("#poih3");
+                var liEl = document.createElement("li");
+                var poiP = document.createElement("p");
+                var ratingRounded = Math.round(data.results[i].score * 10) / 10;
+                poih3El.innerHTML = "These are the top 3 points of interest in ", location;
+                liEl.textContent = data.results[i].name;
+                poiP.innerHTML = ("description: " + data.results[i].snippet + "<br>" + "rating: " + ratingRounded + "/10");
+                poiDivEl.append(liEl, poiP);
+            }
+        })
+  
+  
     searchButton.addEventListener("click", function () {
         $("#recipes-section").empty();
         getRandomCuisineAndCity();
@@ -562,7 +590,17 @@ instModalCloseButton.addEventListener("click", function() {
     viewRecipeButton.addEventListener("click", function () {
         infoModal.classList.remove("is-active");
         recipeInfoModal.classList.add("is-active");
+        var recSteps = JSON.parse(localStorage.getItem("3"));
+        console.log("This is the number of recipe steps: " + recSteps.length);
+        console.log("This from local storage: "+ (recSteps[1]));
+        
+        for (var m = 0; m < recSteps.length; m++) {
+            var recStepsLi = document.createElement("p");
+            recStepsLi.textContent = recSteps[m];
+            instList.append(recStepsLi);
+        }
     })
+
     recipeInstModalCloseButton.addEventListener("click", function () {
         recipeInfoModal.classList.remove("is-active");
     })
@@ -575,9 +613,9 @@ instModalCloseButton.addEventListener("click", function() {
     infoModalCloseButton.addEventListener("click", function () {
         infoModal.classList.remove("is-active");
     })
-        })
+})
 
-    
+
 
     // recipeButton.addEventListener("click", function() {
     //     infoModal.classList.add("is-active");
