@@ -350,7 +350,7 @@ $(document).ready(function () {
                 var poiDivEl = $("#poidiv");
                 poiDivEl.empty();
                 var poiTitleEl = document.querySelector("#poi-title");
-                poiTitleEl.innerHTML = cityCountryObj.city + ", " + cityCountryObj.country + " - Points of Interest";
+                poiTitleEl.innerHTML = cityCountryObj.city.replace(/_/g, " ") + ", " + cityCountryObj.country + " - Points of Interest";
                 renderPoi(cityCountryObj);
             })
         }, 500);
