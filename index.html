@@ -8,12 +8,12 @@
     <title>BonAPPvoyage</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.1/css/bulma-rtl.min.css" />
     <section class="hero is-primary">
-            <div class="hero-body">
+        <div class="hero-body">
             <div class="container">
                 <h1 class="title">
                     BonAPPvoyage
                 </h1>
-                <h2 c   lass="subtitle">
+                <h2 class="subtitle">
                     Travel the world from the comfort of your home
                 </h2>
             </div>
@@ -68,98 +68,21 @@
     </section>
 
     <section id="recipes-section">
-
-        <!--the container below is just a placeholder for development purposes-->
-
-        <!-- <div class="message is-primary mx-6 my-6" id="recipe-id">
-            <div class="message-header">
-                <p class="has-text-weight-bold is-size-4 is-italic" id="recipeTitle">Recipe Name</p>
-                <h2 class="has-text-weight-bold is-size-6 has-text-right" id="cuisine">Cuisine Type</h2>
-            </div>
-            <div class="message-body">
-                <div class="columns">
-                    <div class="column is-4-tablet">
-                        <figure class="image is-128x128">
-                            <img src="https://bulma.io/images/placeholders/256x256.png" id="recipeImage">
-                        </figure>
-                    </div>
-                    <div class="column is-4-tablet">
-                        <p class="has-text-success">Vegetarian: <span class="has-text-weight-bold"
-                                id="vegetarian">YES</span></p>
-                        <p class="has-text-primary">Vegan: <span class="has-text-weight-bold has-text-danger"
-                                id="vegan">NO</span></p>
-                        <p class="has-text-warning-dark">Gluten Free: <span class="has-text-weight-bold has-text-danger"
-                                id="glutenFree">NO</span></p>
-                        <p class="has-text-info">Dairy Free: <span class="has-text-weight-bold has-text-danger"
-                                id="dairyFree">NO</span></p>
-                    </div>
-                    <div class="column is-4-tablet">
-                        <p class="is-size-5 has-text-weight-bold">Ingredients</p>
-                        <ul id="ingredientsNeeded">
-                            <li>Ingredient 1</li>
-                            <li>Ingredient 1</li>
-                            <li>Ingredient 1</li>
-                            <li>Ingredient 1</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
-        <!-- <div class="message is-primary mx-6 my-6" id="recipe-id">
-            <div class="message-header">
-                <p class="has-text-weight-bold is-size-4 is-italic" id="recipeName">Recipe Name</p>
-                <h2 class="has-text-weight-bold is-size-6 has-text-right" id="cuisineType">Cuisine Type</h2>
-            </div>
-            <div class="message-body">
-                <div class="columns">
-                    <div class="column is-4-tablet">
-                        <figure class="image is-128x128">
-                            <img src="https://bulma.io/images/placeholders/256x256.png" id="recipeImage">
-                        </figure>
-                    </div>
-                    <div class="column is-4-tablet">
-                        <p class="has-text-success">Vegetarian: <span class="has-text-weight-bold"
-                                id="vegetarian-id">YES</span></p>
-                        <p class="has-text-primary">Vegan: <span class="has-text-weight-bold has-text-danger"
-                                id="vegan-id">NO</span></p>
-                        <p class="has-text-warning-dark">Gluten Free: <span class="has-text-weight-bold has-text-danger"
-                                id="gluten-id">NO</span></p>
-                        <p class="has-text-info">Dairy Free: <span class="has-text-weight-bold has-text-danger"
-                                id="dairy-id">NO</span></p>
-                    </div>
-                    <div class="column is-4-tablet">
-                        <p class="is-size-5 has-text-weight-bold">Ingredients</p>
-                        <ul id="ingredients-list">
-                            <li>Ingredient 1</li>
-                            <li>Ingredient 1</li>
-                            <li>Ingredient 1</li>
-                            <li>Ingredient 1</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
-        <!--This ends the placeholder container-->
     </section>
 
-    <!-- Modal - Points Of Interest -->
+    <!-- Modal - Points Of interest -->
     <div class="modal" id="info-modal">
         <div class="modal-background" id="info-modal-background"></div>
         <div class="modal-card">
             <header class="modal-card-head has-background-primary-dark">
-                <p class="modal-card-title has-text-light has-text-weight-bold">Italy - Points Of Interest</p>
+                <p class="modal-card-title has-text-light has-text-weight-bold" id="poi-title"></p>
                 <button class="delete" id="info-modal-close-button" aria-label="close"></button>
             </header>
-            <section class="modal-card-content has-background-light py-6 px-6">
-                <div class="is-size-5" id="poidiv">
-                    <h3 id="poih3"></h3>
-                </div>
+            <section class="modal-card-content has-background-light py-6 px-6" id="poisection">
+                <div class="is-size-7" id="poidiv"></div>
                 <footer class="has-text-centered pt-6">
                     <button class="button subtitle has-background-primary-dark is-rounded has-text-light"
-                        id="view-recipe-button">View
-                        Recipe</button>
+                        id="view-recipe-button">View Recipe</button>
                 </footer>
             </section>
         </div>
@@ -170,15 +93,14 @@
         <div class="modal-background" id="recipe-info-modal-background"></div>
         <div class="modal-card">
             <header class="modal-card-head has-background-primary-dark">
-                <p class="modal-card-title has-text-light has-text-weight-bold">Recipe Instructions</p>
+                <p class="modal-card-title has-text-light has-text-weight-bold">Recipe Outline</p>
                 <button class="delete" id="recipe-inst-modal-close-button" aria-label="close"></button>
             </header>
             <section class="modal-card-content has-background-light py-6 px-6">
+                <ol class="is-size-7" id="instructions-list"></ol>
                 <footer class="has-text-centered pt-6">
-                    <ul id="instruction-list">
-                        <li>Steps to make recipe.</li>
-                        <button class="button subtitle has-background-primary-dark is-rounded has-text-light"
-                            id="full-recipe-button">Go to full recipe</button>
+                    <button class="button subtitle has-background-primary-dark is-rounded has-text-light"
+                        id="full-recipe-button">Go to Full Recipe</button>
                 </footer>
             </section>
         </div>
@@ -193,17 +115,18 @@
                 <button class="delete" id="inst-modal-close-button" aria-label="close"></button>
             </header>
             <ol class="modal-card-content has-background-primary-dark has-text-light py-6 px-6">
-                <li class="is-size-5 ">User must click on the Search Bar</li>
-                <li class="is-size-5 ">Type in an ingredient</li>
-                <li class="is-size-5 ">Press Enter key to add it. (Note: Click on Ingredient’s label to remove it)</li>
+                <li class="is-size-5 ">Pick meal type and cook time</li>
+                <li class="is-size-5 ">Click on the Search button</li>
                 <li class="is-size-5 ">Scroll on the list of Recipes</li>
-                <li class="is-size-5 ">Click on a recipe and you will see Points of interest on that particular country
-                </li>
-                <li class="is-size-5 ">Then Click on the View Recipe button</li>
+                <li class="is-size-5 ">Select a recipe</li>
+                <li class="is-size-5 ">You will see Points of interest on a particular city of that country</li>
+                <li class="is-size-5 ">Click on the View Recipe button</li>
+                <li class="is-size-5 ">Follow the recipe steps </li>
+                <li class="is-size-5 ">Click on Full Recipe Button for addition details</li>
             </ol>
         </div>
     </div>
-    
+
     <script src="./assets/JS/script.js"></script>
 </body>
 
