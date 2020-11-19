@@ -60,10 +60,10 @@ THEN the recipe page will open on a new window
 ## Credits
 All changes and improvements were implemented by:
 
-Manuel Leung Chen [GitHub](https://github.com/manuelleungchen)
-Elshie Akindele [GitHub](https://github.com/elshie21)
-Jhonny Lin [GitHub](https://github.com/Jlin72)
-Michael Torontow [GitHub](https://github.com/Torontow)
+* Manuel Leung Chen [GitHub](https://github.com/manuelleungchen)
+* Elshie Akindele [GitHub](https://github.com/elshie21)
+* Jhonny Lin [GitHub](https://github.com/Jlin72)
+* Michael Torontow [GitHub](https://github.com/Torontow)
 
 
 ## License
