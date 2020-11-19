@@ -1,43 +1,32 @@
 
 $(document).ready(function () {
-    // Modal Events
-  
-    // var recipeButton = document.querySelector("#recipe");
-    var instModalBg = document.querySelector("#inst-modal-background");
-    var infoModalBg = document.querySelector("#info-modal-background");
-    var instModal = document.querySelector("#inst-modal");
-    var infoModal = document.querySelector("#info-modal");
-    var instList = document.querySelector("#instructions-list");
-    var instModalCloseButton = document.querySelector("#inst-modal-close-button");
-    var infoModalCloseButton = document.querySelector("#info-modal-close-button");
 
-    instModalBg.addEventListener("click", function () {
-        instModal.classList.remove("is-active");
-    })
-
-    instModalCloseButton.addEventListener("click", function () {
-        instModal.classList.remove("is-active");
-    })
-    //Starting fetch request for spoonacular Api
-
-    // QuerySelectors for HTML Elements
-    var recipeSection = document.querySelector("#recipes-section");
-    var viewRecipeButton = document.querySelector("#view-recipe-button");
-    var instModalBg = document.querySelector("#inst-modal-background");
-    var infoModalBg = document.querySelector("#info-modal-background");
-    var recipeInstModalBg = document.querySelector("#recipe-inst-modal-background");
+    /* QuerySelectors for HTML Elements */
+    /* Modals */
     var instModal = document.querySelector("#inst-modal");
     var infoModal = document.querySelector("#info-modal");
     var recipeInfoModal = document.querySelector("#recipe-info-modal");
+
+    /* Close Buttons */
     var instModalCloseButton = document.querySelector("#inst-modal-close-button");
     var infoModalCloseButton = document.querySelector("#info-modal-close-button");
     var recipeInstModalCloseButton = document.querySelector("#recipe-inst-modal-close-button");
+
+    /* Modals Background */
+    var instModalBg = document.querySelector("#inst-modal-background");
+    var infoModalBg = document.querySelector("#info-modal-background");
+    var recipeInstModalBg = document.querySelector("#recipe-info-modal-background");
+
+    /* Extra buttons */
+    var viewRecipeButton = document.querySelector("#view-recipe-button");
     var fullRecipeButton = document.querySelector("#full-recipe-button");
-    var fullRecipeUrl; // need to get this info from chosen data
-    var mealTypeInput = document.querySelector("#meal-type");
-    var cookTimeInput = document.querySelector("#cook-time");
     var searchButton = document.querySelector("#searchBtn");
 
+    var instList = document.querySelector("#instructions-list");
+    var mealTypeInput = document.querySelector("#meal-type");
+    var cookTimeInput = document.querySelector("#cook-time");
+
+    var fullRecipeUrl; // need to get this info from chosen data
 
     /* If there is not a value saved on pageVisited (local storage) */
     if (localStorage.getItem("pageVisited") === null) {
@@ -45,21 +34,18 @@ $(document).ready(function () {
     }
 
     // This Function Create Recipe Div
-    function createRecipeDiv(title, cuisine, image, foodTags, ingredients, recipeCounter) {
+    function createRecipeDiv(title, cuisine, image, foodTags, ingredients) {
         // Message Div element
-        var messageDiv = $("<div>").addClass("message is-primary mx-6 my-6");
-        messageDiv.attr("id", "recipe-id");
-        messageDiv.attr("data-recipe-number", recipeCounter);
+        var messageDiv = $("<div>").addClass("message is-primary mx-3");
+        console.log("The cuisine type is: ", cuisine);
+        messageDiv.attr("id", cuisine);
         var messageHeader = $("<div>").addClass("message-header");
         var messageBody = $("<div>").addClass("message-body");
 
         // MessageHeader Div Elements
         var recipeTitle = $("<h2>").addClass("has-text-weight-bold is-size-4 is-italic");
-        recipeTitle.attr("id", "recipeTitle");
         recipeTitle.text(title);
         var cuisineName = $("<h2>").addClass("has-text-weight-bold is-size-6 has-text-right");
-        cuisineName.attr("id", cuisine);
-       // cuisineName.attr("id", "cuisine");
         cuisineName.text(cuisine);
 
         // MessageBody Div Elements
@@ -69,7 +55,6 @@ $(document).ready(function () {
         var imgDiv = $("<div>").addClass("column is-4-tablet");
         var figureDiv = $("<figure>").addClass("image is-128x128");
         var imgEl = $("<img>");
-        imgEl.attr("id", "recipeImage")
         imgEl.attr("src", image)
         figureDiv.append(imgEl);
         imgDiv.append(figureDiv);
@@ -169,8 +154,9 @@ $(document).ready(function () {
     function getRecipe(cuisine, recipeCounter) {
 
         // var apiKey = "e2866768e0cb46598bbca075bc0a04ff";    // Manuel api Key
-        var apiKey = "e9e71129ef994529977055667914d612";    // Michael api Key
-        // var apiKey = "f1665cf0e8db418b975517f3bf4ddf27"; //Jhonny api Key;
+        // var apiKey = "e9e71129ef994529977055667914d612";    // Michael api Key
+        // var apiKey = "f1665cf0e8db418b975517f3bf4ddf27"; //Jhonny api Key
+        var apiKey = "92a55a776ce14c14af21d4ac3e27789c";    // Demo api Key
 
         var type = mealTypeInput.value;      // Here we check the value from the dropdown
         var time = cookTimeInput.value;      // Here we check the value from the dropdown
@@ -190,7 +176,6 @@ $(document).ready(function () {
             var maxReadyTime = "&maxReadyTime=" + time;     // Enter selection as the parameter to urlRequest
         }
 
-        // https://api.spoonacular.com/recipes/complexSearch?apiKey=e2866768e0cb46598bbca075bc0a04ff&number=1&addRecipeInformation=true&cuisine=Italian&type=main%20course&maxReadyTime=20&ignorePantry=true&instructionsRequired=true&fillIngredients=true
         var urlRequest = "https://api.spoonacular.com/recipes/complexSearch?apiKey=" + apiKey + "&number=1" + "&addRecipeInformation=true" + "&cuisine=" + cuisine + mealType + maxReadyTime + "&ignorePantry=true" + "&instructionsRequired=true" + "&fillIngredients=true";
 
         // This fetch is to get the recipe id, image, list of missed ingredients, name. Parameter: max 6 recipe, use most of ingredients provided and ignore pantry items. 
@@ -199,17 +184,16 @@ $(document).ready(function () {
                 return resp.json();
             })
             .then(function (data) {
-                console.log(data);
-                var recipeTitle;
-                var recipeImage; // Recipe Image URL Src
-                var recipeUrl;
-                var vegetarian;
-                var vegan;
-                var glutenFree;
-                var dairyFree;
-                var recipeSteps = [];
+                var recipeTitle;        // Variable to storage Recipe Title
+                var recipeImage;        // Variable to storage Image URL Src
+                var recipeUrl;          // Variable to storage Recipe URL
+                var vegetarian;         // Variable to storage Vegetarien condition
+                var vegan;              // Variable to storage Vegan condition
+                var glutenFree;         // Variable to storage Gluten condition
+                var dairyFree;          // Variable to storage Dairy condition
+                var recipeSteps = [];   // Variable to storage Recipe Steps
 
-                var ingredientsNeeded = [];
+                var ingredientsNeeded = []; // Variable to storage Ingredients
 
                 for (var counter = 0; counter < data.results.length; counter++) {
                     recipeTitle = data.results[counter].title;  // Recipe Title
@@ -220,146 +204,128 @@ $(document).ready(function () {
                     vegan = data.results[counter].vegan;
                     glutenFree = data.results[counter].glutenFree;
                     dairyFree = data.results[counter].dairyFree;
-                    ingredientsNeeded = [];
 
                     // Loop through Recipe and storage each stepSteps into recipeSteps list
                     for (var count = 0; count < data.results[counter].analyzedInstructions[0].steps.length; count++) {
                         recipeSteps.push(data.results[counter].analyzedInstructions[0].steps[count].step);
                     }
+                    
+                    recipeSteps.push(recipeUrl);    // Add recipe url to the end of recipe steps
+
                     // Loop through missedIngredients array on each recipe and storage each ingredients in ingredientsNeeded list
                     for (var ingredCount = 0; ingredCount < data.results[counter].missedIngredients.length; ingredCount++) {
                         ingredientsNeeded.push(data.results[counter].missedIngredients[ingredCount].name);
                     }
-
                     // Pass recipe data and Call createRecipeDiv()
-                    createRecipeDiv(recipeTitle, cuisine, recipeImage, [vegetarian, vegan, glutenFree, dairyFree], ingredientsNeeded, recipeCounter);
-
-                    /* Save each recipe steps on the local storage with recipe number as key name */
-                    localStorage.setItem(recipeCounter, JSON.stringify(recipeSteps))
-                    console.log(recipeCounter);
+                    createRecipeDiv(recipeTitle, cuisine, recipeImage, [vegetarian, vegan, glutenFree, dairyFree], ingredientsNeeded);
+                    /* Save each recipe steps and url on the local storage with recipe number as key name */
+                    localStorage.setItem(cuisine, JSON.stringify(recipeSteps))
                 }
             })
     }
 
     // List to Cuisine / Cities
     var listCuisineAndCity = [
-        { cuisine: "African", city: "Cape_Town", },
-        { cuisine: "American", city: "New_York_City", },
-        { cuisine: "British", city:"London", },
-        { cuisine: "Cajun", city:"New_Orleans", },
-        { cuisine: "Caribbean", city: "Montego_Bay",},
-        { cuisine: "Chinese", city: "Guangzhou", },
-        { cuisine: "Eastern European", city: "Paris", },
-        { cuisine: "European", city: "Paris", },
-        { cuisine: "French", city: "Paris", },
-        { cuisine: "German", city: "Berlin", },
-        { cuisine: "Greek", city: "Athens" },
-        { cuisine: "Indian", city: "New_Delhi", },
-        { cuisine: "Irish", city: "Dublin", },
-        { cuisine: "Italian", city: "Rome", },
-        { cuisine: "Japanese", city: "Tokyo", },
-        { cuisine: "Jewish", city: "Israel", },
-        { cuisine: "Korean", city: "Seoul", },
-        { cuisine: "Latin American", city: "Bogota", },
-        { cuisine: "Mediterranean", city: "Istanbul", },
-        { cuisine: "Mexican", city: "Mexico", },
-        { cuisine: "Middle Eastern", city: "Cairo", },
-        { cuisine: "Nordic", city: "Oslo", },
-        { cuisine: "Southern", city: "Houston", },
-        { cuisine: "Spanish", city: "Madrid", },
-        { cuisine: "Thai", city: "Bangkok", },
-        { cuisine: "Vietnamese", city: "Hanoi", }
+        { cuisine: "African", city: "Cape_Town", country: "South Africa" },
+        { cuisine: "American", city: "New_York_City", country: "USA" },
+        { cuisine: "British", city: "London", country: "England" },
+        { cuisine: "Cajun", city: "New_Orleans", country: "Lousiana" },
+        { cuisine: "Caribbean", city: "Montego_Bay", country: "Jamaica" },
+        { cuisine: "Chinese", city: "Guangzhou", country: "China" },
+        { cuisine: "Eastern European", city: "Paris", country: "France" },
+        { cuisine: "European", city: "Paris", country: "France" },
+        { cuisine: "French", city: "Paris", country: "France" },
+        { cuisine: "German", city: "Munich", country: "Germany" },
+        { cuisine: "Greek", city: "Athens", country: "Greece" },
+        { cuisine: "Indian", city: "New_Delhi", country: "India" },
+        { cuisine: "Irish", city: "Dublin", country: "Ireland" },
+        { cuisine: "Italian", city: "Rome", country: "Italy" },
+        { cuisine: "Japanese", city: "Tokyo", country: "Japan" },
+        { cuisine: "Jewish", city: "Jerusalem", country: "Israel" },
+        { cuisine: "Korean", city: "Seoul", country: "Korea" },
+        { cuisine: "Latin American", city: "Bogota", country: "Colombia" },
+        { cuisine: "Mediterranean", city: "Istanbul", country: "Turkey" },
+        { cuisine: "Mexican", city: "Mexico", country: "Mexico" },
+        { cuisine: "Middle Eastern", city: "Cairo", country: "Egypt" },
+        { cuisine: "Nordic", city: "Oslo", country: "Norway" },
+        { cuisine: "Southern", city: "Houston", country: "Texas" },
+        { cuisine: "Spanish", city: "Madrid", country: "Spain" },
+        { cuisine: "Thai", city: "Bangkok", country: "Thailand" },
+        { cuisine: "Vietnamese", city: "Hanoi", country: "Vietnam" }
     ]
 
-    //Starting fetch request for spoonacular Api
+    // This Function gets the corresponding Obj from listCuisineAndCity by cuisine type
+    function findCountryByCuisine(objArray, cuisine) {
+        var foundCityCountry;  // Storage the new object
+        var length = objArray.length;   // Storage the array length
+
+        for (var idx = 0; idx <= length; idx++) {
+            // Get the object and make the comparison
+            var obj = objArray[idx];
+            if (obj.cuisine === cuisine) {
+                foundCityCountry = obj;
+                // we're done! get out now
+                break;
+            }
+        }
+        return foundCityCountry;    // Send it back
+    }
 
     // This function selects randomly 6 objects from listCuisineAndCity and call getRecipe function
     function getRandomCuisineAndCity() {
 
         var listOfSelectedObjs = [];    // List of selected objects
         var recipeCounter = 1;
-        while (recipeCounter <= 6) {
+        while (recipeCounter <= 5) {
             var randomIndex = Math.floor(Math.random() * listCuisineAndCity.length)
             if (listOfSelectedObjs.indexOf(listCuisineAndCity[randomIndex]) === -1) {
                 listOfSelectedObjs.push(listCuisineAndCity[randomIndex]);
                 // or call getRecipe ()
                 getRecipe(listCuisineAndCity[randomIndex].cuisine, recipeCounter);
-                console.log("this is recipeCounter" + recipeCounter);
                 recipeCounter++;
             }
         }
-            console.log(listOfSelectedObjs);
-            var location = [];
-            location.push(listOfSelectedObjs[0]["city"], listOfSelectedObjs[1]["city"], listOfSelectedObjs[2]["city"], listOfSelectedObjs[3]["city"], listOfSelectedObjs[4]["city"], listOfSelectedObjs[5]["city"]);
-            console.log(location);    
-        }
 
-        //This function will be used to render the points of interest everytime the cuisinetype is clicked on
-        function renderPoi (location) {
-            var poiSectionEl = document.querySelector("#poisection");
-            var poiDivEl = document.querySelector("#poidiv");
-            var triposoId = "98JDSPD1";
-                    var triposoApiKey = "opge12o7zdr1npc4primk2yaxn3omhxa";
-                    var triposoUrl = "https://www.triposo.com/api/20201111/poi.json?location_id=" + location + "&account=" + triposoId + "&token=" + triposoApiKey + "&count=4&fields=id,name,score,snippet,location_id,tag_labels&order_by=-score";
-                        fetch(triposoUrl)
-                            .then(function (response) {
-                                console.log("Triposo has a " + response);
-                                return response.json();
-                            })
-                            .then(function (data) {
-                                // console.log(data);
-                                // console.log(data.results.name);
-                                var newLocation = location.replace(/_/g, " ");
-                                for (i=0;i<3;i++) {
-                                    console.log(data.results[i].name);
-                                    var poiDivEl = document.querySelector("#poidiv");
-                                    var poiH3El = document.createElement("h3");
-                                    var liEl = document.createElement("li");
-                                    var poiP = document.createElement("p");
-                                    var ratingRounded = Math.round(data.results[i].score * 10) / 10;
-                                    poiH3El.innerHTML = "These are the top 3 points of interest in ", newLocation;
-                                    liEl.textContent = data.results[i].name;
-                                    poiP.innerHTML = ("description: " + data.results[i].snippet + "<br>" + "rating: " + ratingRounded + "/10");
-                                    poiDivEl.append(poiH3El, liEl, poiP);
-                                }
-                            })   
-        }
-    getRandomCuisineAndCity();
+    }
 
-
-    //Starting fetch request for triposo
-    var location = "Toronto"; //Placeholder this will change based on the cuisine.
-    var triposoId = "98JDSPD1";
-    var triposoApiKey = "opge12o7zdr1npc4primk2yaxn3omhxa";
-    var triposoUrl = "https://www.triposo.com/api/20201111/poi.json?location_id=" + location + "&account=" + triposoId + "&token=" + triposoApiKey + "&count=4&fields=id,name,score,snippet,location_id,tag_labels&order_by=-score";
-    fetch(triposoUrl)
-        .then(function (response) {
-            // console.log("Triposo has a " + response);
-            return response.json();
-        })
-        .then(function (data) {
-            // console.log(data);
-            for (i = 0; i < 3; i++) {
-                // console.log(data.results[i].name);
+    //This function will be used to render the points of interest everytime the cuisinetype is clicked on
+    function renderPoi(location) {
+        var triposoId = "98JDSPD1";
+        var triposoApiKey = "opge12o7zdr1npc4primk2yaxn3omhxa";
+        var triposoUrl = "https://www.triposo.com/api/20201111/poi.json?location_id=" + location.city + "&account=" + triposoId + "&token=" + triposoApiKey + "&count=4&fields=id,name,score,snippet,location_id,tag_labels&order_by=-score";
+        fetch(triposoUrl)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
                 var poiDivEl = document.querySelector("#poidiv");
-                var poih3El = document.querySelector("#poih3");
-                var liEl = document.createElement("li");
-                var poiP = document.createElement("p");
-                var ratingRounded = Math.round(data.results[i].score * 10) / 10;
-                poih3El.innerHTML = "These are the top 3 points of interest in ", location;
-                liEl.textContent = data.results[i].name;
-                poiP.innerHTML = ("description: " + data.results[i].snippet + "<br>" + "rating: " + ratingRounded + "/10");
-                poiDivEl.append(liEl, poiP);
-            }
-        })
-  
-  
+                for (i = 0; i < 3; i++) {
+                    var liEl = document.createElement("li");
+                    liEl.classList.add("has-text-weight-bold")
+                    var poiP = document.createElement("p");
+                    var poiRate = document.createElement("p");
+                    poiRate.classList.add("has-text-danger");
+                    var ratingRounded = Math.round(data.results[i].score * 10) / 10;
+                    liEl.textContent = data.results[i].name;
+                    poiP.innerHTML = (data.results[i].snippet);
+                    poiRate.innerHTML = ("RATING: " + ratingRounded + "/10");
+                    poiDivEl.append(liEl, poiP, poiRate);
+                }
+            })
+    }
+
+    // Call function getRandomCuisineAndCity when page load
+    // getRandomCuisineAndCity();  // Call getRandomCuisineAndCity and get recipes
+    // setClickEventForRecipe();   // Call setClickEventForRecipe and add event listening to each recipe div
+
+    // Event listening for Search button
     searchButton.addEventListener("click", function () {
         $("#recipes-section").empty();
-        getRandomCuisineAndCity();
+        getRandomCuisineAndCity(); // Call getRandomCuisineAndCity and get recipes
+        setClickEventForRecipe();  // Call setClickEventForRecipe and add event listening to each recipe div
     })
 
-    // Modal Events Listening
+    // Event Listening for Instructions Modal
     instModalBg.addEventListener("click", function () {
         instModal.classList.remove("is-active");
         /* Save true value when user close the inst modal to pageVisited (the local storage) */
@@ -370,260 +336,72 @@ $(document).ready(function () {
         /* Save true value when user close the inst modal to pageVisited (the local storage) */
         localStorage.setItem("pageVisited", JSON.stringify("true"));
     })
-    recipeSection.addEventListener("click", function (e) {
-        var h2CuisineText = e.target.id;
-        infoModal.classList.add("is-active");
-        var h2Cuisine = $("#cuisine");
-        //var h2CuisineText = h2Cuisine.text();
-        //console.log("anything",$(this).attr("id"));
-        // added if and else if statement to change the points of interest modal based on the cuisine type
-        if (h2CuisineText === "French") {
-            var poiDivEl = $("#poidiv");
-            poiDivEl.empty();
-            var poiTitleEl = document.querySelector("#poi-title");
-            console.log(h2CuisineText);
-            poiTitleEl.innerHTML = "France - Points of Interest";
-            var location = "Paris";
-            renderPoi(location);
-        } else if (h2CuisineText === "African") {
-            var poiDivEl = $("#poidiv");
-            poiDivEl.empty();
-            var poiTitleEl = document.querySelector("#poi-title");
-            console.log(h2CuisineText);
-            poiTitleEl.innerHTML = "South Africa - Points of Interest";
-            var location = "Cape_Town";
-            renderPoi(location);
-        } else if (h2CuisineText === "American") {
-            var poiDivEl = $("#poidiv");
-            poiDivEl.empty();
-            var poiTitleEl = document.querySelector("#poi-title");
-            console.log(h2CuisineText);
-            poiTitleEl.innerHTML = "USA - Points of Interest";
-            var location = "New_York_City";
-            renderPoi(location);
-        } else if (h2CuisineText === "British") {
-            var poiDivEl = $("#poidiv");
-            poiDivEl.empty();
-            var poiTitleEl = document.querySelector("#poi-title");
-            console.log(h2CuisineText);
-            poiTitleEl.innerHTML ="England - Points of Interest";
-            var location = "London";
-            renderPoi(location);
-        } else if (h2CuisineText === "Cajun") {
-            var poiDivEl = $("#poidiv");
-            poiDivEl.empty();
-            var poiTitleEl = document.querySelector("#poi-title");
-            console.log(h2CuisineText);
-            poiTitleEl.innerHTML = "Louisiana - Points of Interest";
-            var location = "New_Orleans";
-            renderPoi(location);
-        } else if (h2CuisineText === "Caribbean") {
-            var poiDivEl = $("#poidiv");
-            poiDivEl.empty();
-            var poiTitleEl = document.querySelector("#poi-title");
-            console.log(h2CuisineText);
-            poiTitleEl.innerHTML = "Jamaica - Points of Interest";
-            var location = "Montego_Bay";
-            renderPoi(location);
-        } else if (h2CuisineText === "Chinese") {
-            var poiDivEl = $("#poidiv");
-            poiDivEl.empty();
-            var poiTitleEl = document.querySelector("#poi-title");
-            console.log(h2CuisineText);
-            poiTitleEl.innerHTML = "China - Points of Interest";
-            var location = "Guangzhou";
-            renderPoi(location);
-        } else if (h2CuisineText === "Eastern European") {
-            var poiDivEl = $("#poidiv");
-            poiDivEl.empty();
-            var poiTitleEl = document.querySelector("#poi-title");
-            console.log(h2CuisineText);
-            poiTitleEl.innerHTML = "France - Points of Interest";
-            var location = "Paris";
-            renderPoi(location);
-        } else if (h2CuisineText === "European") {
-            var poiDivEl = $("#poidiv");
-            poiDivEl.empty();
-            var poiTitleEl = document.querySelector("#poi-title");
-            console.log(h2CuisineText);
-            poiTitleEl.innerHTML = "France - Points of Interest";
-            var location = "Paris";
-            renderPoi(location);
-        } else if (h2CuisineText === "German") {
-            var poiDivEl = $("#poidiv");
-            poiDivEl.empty();
-            var poiTitleEl = document.querySelector("#poi-title");
-            console.log(h2CuisineText);
-            poiTitleEl.innerHTML = "Germany - Points of Interest";
-            var location = "Munich";
-            renderPoi(location);
-        } else if (h2CuisineText === "Greek") {
-            var poiDivEl = $("#poidiv");
-            poiDivEl.empty();
-            var poiTitleEl = document.querySelector("#poi-title");
-            console.log(h2CuisineText);
-            poiTitleEl.innerHTML = "Greece - Points of Interest";
-            var location = "Athens";
-            renderPoi(location);
-        } else if (h2CuisineText === "Indian") {
-            var poiDivEl = $("#poidiv");
-            poiDivEl.empty();
-            var poiTitleEl = document.querySelector("#poi-title");
-            console.log(h2CuisineText);
-            poiTitleEl.innerHTML = "India - Points of Interest";
-            var location = "New_Delhi";
-            renderPoi(location);
-        } else if (h2CuisineText === "Irish") {
-            var poiDivEl = $("#poidiv");
-            poiDivEl.empty();
-            var poiTitleEl = document.querySelector("#poi-title");
-            console.log(h2CuisineText);
-            poiTitleEl.innerHTML = "Ireland - Points of Interest";
-            var location = "Dublin";
-            renderPoi(location);
-        } else if (h2CuisineText === "Italian") {
-            var poiDivEl = $("#poidiv");
-            poiDivEl.empty();
-            var poiTitleEl = document.querySelector("#poi-title");
-            console.log(h2CuisineText);
-            poiTitleEl.innerHTML = "Italy - Points of Interest";
-            var location = "Rome";
-            renderPoi(location);
-        } else if (h2CuisineText === "Japanese") {
-            var poiDivEl = $("#poidiv");
-            poiDivEl.empty();
-            var poiTitleEl = document.querySelector("#poi-title");
-            console.log(h2CuisineText);
-            poiTitleEl.innerHTML = "Japan - Points of Interest";
-            var location = "Tokyo";
-            renderPoi(location);
-        } else if (h2CuisineText === "Korean") {
-            var poiDivEl = $("#poidiv");
-            poiDivEl.empty();
-            var poiTitleEl = document.querySelector("#poi-title");
-            console.log(h2CuisineText);
-            poiTitleEl.innerHTML = "Korea - Points of Interest";
-            var location = "Seoul";
-            renderPoi(location);
-        } else if (h2CuisineText === "Jewish") {
-            var poiDivEl = $("#poidiv");
-            poiDivEl.empty();
-            var poiTitleEl = document.querySelector("#poi-title");
-            console.log(h2CuisineText);
-            poiTitleEl.innerHTML = "Isreal - Points of Interest";
-            var location = "Jerusalem";
-            renderPoi(location);
-        } else if (h2CuisineText === "Latin American") {
-            var poiDivEl = $("#poidiv");
-            poiDivEl.empty();
-            var poiTitleEl = document.querySelector("#poi-title");
-            console.log(h2CuisineText);
-            poiTitleEl.innerHTML = "Colombia - Points of Interest";
-            var location = "Bogota";
-            renderPoi(location);
-        } else if (h2CuisineText === "Mediterranean") {
-            var poiDivEl = $("#poidiv");
-            poiDivEl.empty();
-            var poiTitleEl = document.querySelector("#poi-title");
-            console.log(h2CuisineText);
-            poiTitleEl.innerHTML = "Turkey - Points of Interest";
-            var location = "Istanbul";
-            renderPoi(location);
-        } else if (h2CuisineText === "Mexican") {
-            var poiDivEl = $("#poidiv");
-            poiDivEl.empty();
-            var poiTitleEl = document.querySelector("#poi-title");
-            console.log(h2CuisineText);
-            poiTitleEl.innerHTML = "Mexico - Points of Interest";
-            var location = "Mexico_City";
-            renderPoi(location);
-        } else if (h2CuisineText === "Middle-Eastern") {
-            var poiDivEl = $("#poidiv");
-            poiDivEl.empty();
-            var poiTitleEl = document.querySelector("#poi-title");
-            console.log(h2CuisineText);
-            poiTitleEl.innerHTML = "Egypt - Points of Interest";
-            var location = "Cairo";
-            renderPoi(location);
-        } else if (h2CuisineText === "Nordic") {
-            var poiDivEl = $("#poidiv");
-            poiDivEl.empty();
-            var poiTitleEl = document.querySelector("#poi-title");
-            console.log(h2CuisineText);
-            poiTitleEl.innerHTML = "Norway - Points of Interest";
-            var location = "Oslo";
-            renderPoi(location);
-        } else if (h2CuisineText === "Southern") {
-            var poiDivEl = $("#poidiv");
-            poiDivEl.empty();
-            var poiTitleEl = document.querySelector("#poi-title");
-            console.log(h2CuisineText);
-            poiTitleEl.innerHTML = "Texas - Points of Interest";
-            var location = "Houston";
-            renderPoi(location);
-        } else if (h2CuisineText === "Spanish") {
-            var poiDivEl = $("#poidiv");
-            poiDivEl.empty();
-            var poiTitleEl = document.querySelector("#poi-title");
-            console.log(h2CuisineText);
-            poiTitleEl.innerHTML = "Spain - Points of Interest";
-            var location = "Madrid";
-            renderPoi(location);
-        } else if (h2CuisineText === "Thai") {
-            var poiDivEl = $("#poidiv");
-            poiDivEl.empty();
-            var poiTitleEl = document.querySelector("#poi-title");
-            console.log(h2CuisineText);
-            poiTitleEl.innerHTML = "Thailand - Points of Interest";
-            var location = "Bangkok";
-            renderPoi(location);
-        } else if (h2CuisineText === "Vietnamese") {
-            var poiDivEl = $("#poidiv");
-            poiDivEl.empty();
-            var poiTitleEl = document.querySelector("#poi-title");
-            console.log(h2CuisineText);
-            poiTitleEl.innerHTML = "Vietnam - Points of Interest";
-            var location = "Hanoi";
-            renderPoi(location);
-        }
-    })
-    viewRecipeButton.addEventListener("click", function () {
-        infoModal.classList.remove("is-active");
-        recipeInfoModal.classList.add("is-active");
-        var recSteps = JSON.parse(localStorage.getItem("3"));
-        console.log("This is the number of recipe steps: " + recSteps.length);
-        console.log("This from local storage: "+ (recSteps[1]));
-        
-        for (var m = 0; m < recSteps.length; m++) {
-            var recStepsLi = document.createElement("p");
-            recStepsLi.textContent = recSteps[m];
-            instList.append(recStepsLi);
-        }
-    })
 
-    recipeInstModalCloseButton.addEventListener("click", function () {
-        recipeInfoModal.classList.remove("is-active");
-    })
-    fullRecipeButton.addEventListener("click", function () {
-        window.open(fullRecipeUrl); // need to get this info from data
-    })
+    // Event Listening for POI Modal
+    function setClickEventForRecipe() {
+        setTimeout(function () {
+            $(".message").on("click", function () {
+                var cuisineID = $(this).attr("id");
+                var dataRecipeNumber = $(this).attr("id");
+                /* Save selected recipe id on the local storage */
+                localStorage.setItem("selectedRecipeID", JSON.stringify(dataRecipeNumber))
+                infoModal.classList.add("is-active");   // Show POI modal
+                var cityCountryObj = findCountryByCuisine(listCuisineAndCity, cuisineID);
+                var poiDivEl = $("#poidiv");
+                poiDivEl.empty();
+                var poiTitleEl = document.querySelector("#poi-title");
+                poiTitleEl.innerHTML = cityCountryObj.city + ", " + cityCountryObj.country + " - Points of Interest";
+                renderPoi(cityCountryObj);
+            })
+        }, 500);
+    }
+
+    // Event listening for closing POI modal
     infoModalBg.addEventListener("click", function () {
         infoModal.classList.remove("is-active");
     })
     infoModalCloseButton.addEventListener("click", function () {
         infoModal.classList.remove("is-active");
     })
+
+    // Event listening for the Recipe Steps modal
+    viewRecipeButton.addEventListener("click", function () {
+        infoModal.classList.remove("is-active");
+        recipeInfoModal.classList.add("is-active");
+
+        /* If there is not a value saved on pageVisited (local storage) */
+        if (localStorage.getItem("selectedRecipeID") !== null) {
+            var recNumber = JSON.parse(localStorage.getItem("selectedRecipeID"));
+            console.log(recNumber);
+            var recSteps = JSON.parse(localStorage.getItem(recNumber));
+            console.log(recSteps);
+            $("#instructions-list").empty();    // Clear any current li on instruction ol
+            for (var m = 0; m < recSteps.length; m++) {
+                if (m + 1 === recSteps.length) {
+                    fullRecipeUrl = recSteps[m];
+                    break;
+                }
+                var recStepsLi = document.createElement("li");
+                recStepsLi.textContent = recSteps[m];
+                instList.append(recStepsLi);
+            }
+        }
+    })
+
+    // Event listening for closing Recipe Modal 
+    recipeInstModalBg.addEventListener("click", function () {
+        recipeInfoModal.classList.remove("is-active");
+    })
+    recipeInstModalCloseButton.addEventListener("click", function () {
+        recipeInfoModal.classList.remove("is-active");
+    })
+
+    // Event listening for Recipe URL button
+    fullRecipeButton.addEventListener("click", function () {
+        window.open(fullRecipeUrl); 
+    })
+
 })
 
 
-
-    // recipeButton.addEventListener("click", function() {
-    //     infoModal.classList.add("is-active");
-    // })
-    // infoModalBg.addEventListener("click", function() {
-    //     infoModal.classList.remove("is-active");
-    // })
-    // infoModalCloseButton.addEventListener("click", function() {
-    //     infoModal.classList.remove("is-active");
-    // })
 
