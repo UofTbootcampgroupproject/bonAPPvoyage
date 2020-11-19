@@ -6,6 +6,7 @@ Travel the world from the comfort of your home
 ## Description
 
 ![Food](./assets/images/food-image.jpg)
+
 Bonappvoyage is an app that has been created to help users utilize the ingredients that they have at home. Bonappvoyage helps users find different recipes from around the world. With Covid-19 being on the rise. We want to help users experience traveling from the comfort of their home. This App is user friendly and is fun to use. Bonapvoyage has 2 drop downs that allows you to select the type of meal and cook time followed by a search button that will generate the recipes. After selecting your recipe the user is provided with tourist information in regards of the origin of the meal and the country.
 [Demo Video](https://www.youtube.com/watch?v=X3YEamn7x60)
 
