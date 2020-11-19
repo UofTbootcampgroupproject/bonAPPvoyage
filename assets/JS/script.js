@@ -243,7 +243,7 @@ $(document).ready(function () {
         { cuisine: "Japanese", city: "Tokyo", country: "Japan" },
         { cuisine: "Jewish", city: "Jerusalem", country: "Israel" },
         { cuisine: "Korean", city: "Seoul", country: "Korea" },
-        { cuisine: "Latin American", city: "Bogota", country: "Colombia" },
+        { cuisine: "Latin American", city: "Lima", country: "Peru" },
         { cuisine: "Mediterranean", city: "Istanbul", country: "Turkey" },
         { cuisine: "Mexican", city: "Mexico", country: "Mexico" },
         { cuisine: "Middle Eastern", city: "Cairo", country: "Egypt" },
