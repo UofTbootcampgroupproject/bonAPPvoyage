@@ -20,7 +20,9 @@ Bonappvoyage is an app that has been created to help users utilize the ingredien
 
 ## User Story
 ```
-Given that we are in a pandemic and are encouraged to stay home as much as possible, as a person who likes to cook, given that I already have certain ingredients on hand, I want to try new recipes from around the world and learn about where they came from.
+Given that we are in a pandemic and are encouraged to stay home as much as possible, 
+as a person who likes to cook, given that I already have certain ingredients on hand, 
+I want to try new recipes from around the world and learn about where they came from.
 ```
 
 ## Acceptance Criteria
